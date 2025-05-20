@@ -6,18 +6,22 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 
 ### Chapter 2: Kubernetes Basics
 
-First deploy
-- [1.1. Getting started]()
+#### First deploy
+
+- [1.1. Getting started](https://github.com/dev0T/DwK-2025/tree/1.1/log_output)
 - [1.2. The project, step 1]()
 - [1.3. Declarative approach]()
 - [1.4. The project, step 2]()
-Introduction to Networking
+
+#### Introduction to Networking
+
 - [1.5. The project, step 3]()
 - [1.6. The project, step 4]()
 - [1.7. External access with Ingress]()
 - [1.8. The project, step 5]()
 - [1.9. More services]()
-Introduction to Storage
+
+#### Introduction to Storage
 - [1.10. Even more services]()
 - [1.11. Persisting data]()
 - [1.12. The project, step 6]()
