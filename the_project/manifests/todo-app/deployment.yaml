@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: taas93/todo-app:8ee352e5-a2ab-49bb-a300-7e3d27e49f40
+          image: taas93/todo-app:97fb7abf-a481-451e-bc3e-3f4038e2d167
           env:
             - name: PORT
               value: "3003"

@@ -31,3 +31,11 @@ To build the server docker image and push it to docker hub simply run the follow
 ```zsh
 docker buildx build -t <user>/todo-app:<tag> . --push
 ```
+
+## K8s
+
+To run the services, run the following command on the_project folder:
+
+```zsh
+kubectl apply -Rf manifests
+```

@@ -1,14 +1,10 @@
-use actix_web::{get, middleware, App, HttpResponse, HttpServer, Responder};
+use actix_files::Files;
+use actix_web::{middleware, App, HttpServer};
 use dotenv::dotenv;
 use log::info;
 use std::env;
 
 const DEFAULT_PORT: u16 = 8080;
-
-#[get("/")]
-async fn index() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -31,7 +27,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .wrap(middleware::Logger::default())
-            .service(index)
+            .service(Files::new("/", "static").index_file("index.html"))
     })
     .bind(("0.0.0.0", port))?
     .run()
