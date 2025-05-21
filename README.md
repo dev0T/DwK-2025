@@ -9,9 +9,9 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 #### First deploy
 
 - [1.1. Getting started](https://github.com/dev0T/DwK-2025/tree/1.1/log_output)
-- [1.2. The project, step 1]()
-- [1.3. Declarative approach]()
-- [1.4. The project, step 2]()
+- [1.2. The project, step 1](https://github.com/dev0T/DwK-2025/tree/1.2/the_project/)
+- [1.3. Declarative approach](https://github.com/dev0T/DwK-2025/tree/1.3/log_output)
+- [1.4. The project, step 2](https://github.com/dev0T/DwK-2025/tree/1.4/the_project/)
 
 #### Introduction to Networking
 

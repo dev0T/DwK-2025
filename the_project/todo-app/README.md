@@ -29,5 +29,5 @@ If successful, there will be a log message stating that the server is listening 
 To build the server docker image and push it to docker hub simply run the following command from the project root:
 
 ```zsh
-docker buildx build -t <user>/todo-app:latest . --push
+docker buildx build -t <user>/todo-app:<tag> . --push
 ```

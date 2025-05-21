@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      containers:
+        - name: todo-app
+          image: taas93/todo-app:8ee352e5-a2ab-49bb-a300-7e3d27e49f40
+          env:
+            - name: PORT
+              value: "3003"
