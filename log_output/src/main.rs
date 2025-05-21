@@ -1,21 +1,51 @@
+use actix_web::{get, middleware, web, App, HttpResponse, HttpServer, Responder};
 use chrono::Utc;
-use std::thread::sleep;
-use std::time::{Duration, Instant};
+use dotenv::dotenv;
+use log::info;
+use std::env;
 use uuid::Uuid;
 
-fn main() {
-    let id = Uuid::new_v4();
-    display_string(&id);
+const DEFAULT_PORT: u16 = 8080;
+
+struct AppState {
+    id: Uuid,
 }
 
-fn display_string(s: &Uuid) {
-    let interval = Duration::from_secs(5);
-    let mut next_time = Instant::now() + interval;
+#[get("/")]
+async fn index(data: web::Data<AppState>) -> impl Responder {
+    let timestamp: chrono::DateTime<Utc> = Utc::now();
+    let id: Uuid = data.id;
 
-    loop {
-        let timestamp: chrono::DateTime<Utc> = Utc::now();
-        println!("{timestamp:?}: {s}");
-        sleep(next_time - Instant::now());
-        next_time += interval;
-    }
+    HttpResponse::Ok().body(format!("{timestamp:?}: {id}"))
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    dotenv().ok();
+
+    env_logger::init_from_env(env_logger::Env::new().default_filter_or("debug"));
+
+    let port: u16 = env::var("PORT")
+        .map(|port| match port.parse() {
+            Ok(int) => int,
+            Err(_) => {
+                info!("Invalid PORT. Using default port {}.", DEFAULT_PORT);
+                DEFAULT_PORT
+            }
+        })
+        .unwrap_or(DEFAULT_PORT);
+
+    info!("Server started in port {}", port);
+
+    HttpServer::new(|| {
+        App::new()
+            .wrap(middleware::Logger::default())
+            .app_data(web::Data::new(AppState {
+                id: Uuid::from(Uuid::new_v4()),
+            }))
+            .service(index)
+    })
+    .bind(("0.0.0.0", port))?
+    .run()
+    .await
 }
