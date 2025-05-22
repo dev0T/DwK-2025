@@ -15,11 +15,11 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 
 #### Introduction to Networking
 
-- [1.5. The project, step 3]()
-- [1.6. The project, step 4]()
-- [1.7. External access with Ingress]()
-- [1.8. The project, step 5]()
-- [1.9. More services]()
+- [1.5. The project, step 3](https://github.com/dev0T/DwK-2025/tree/1.5/the_project/)
+- [1.6. The project, step 4](https://github.com/dev0T/DwK-2025/tree/1.6/the_project/)
+- [1.7. External access with Ingress](https://github.com/dev0T/DwK-2025/tree/1.7/log_output/)
+- [1.8. The project, step 5](https://github.com/dev0T/DwK-2025/tree/1.8/the_project/)
+- [1.9. More services](https://github.com/dev0T/DwK-2025/tree/1.9/log_output)
 
 #### Introduction to Storage
 - [1.10. Even more services]()

@@ -1,0 +1,15 @@
+[package]
+name = "create-file"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-files = "0.6"
+actix-web = "4.11"
+anyhow = "1.0"
+chrono = "0.4"
+dotenvy = "0.15"
+env_logger = "0.11"
+log = "0.4"
+tokio = { version = "1.45", features = ["fs"] }
+tokio-cron-scheduler = "0.14"
