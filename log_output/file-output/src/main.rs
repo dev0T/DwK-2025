@@ -4,15 +4,17 @@ use dotenvy::dotenv;
 use log::info;
 use std::env;
 use tokio::{fs::File, io::AsyncReadExt};
-use uuid::Uuid;
 
-const FILE_PATH: &str = "./files/file.txt";
+const FILE_PATH: &str = "./files/hash.txt";
+const PONG_PATH: &str = "./files/counter.txt";
 const DEFAULT_PORT: u16 = 8080;
 
 #[get("/")]
 async fn index() -> HttpResponse {
     match format_data().await {
-        Ok((timestamp, hash)) => HttpResponse::Ok().body(format!("{timestamp}:{hash}.")),
+        Ok((string, pongs)) => {
+            HttpResponse::Ok().body(format!("{string}. \nPing / Pongs: {pongs}"))
+        }
         Err(err) => {
             HttpResponse::InternalServerError().body(format!("Internal server error: {:?}", err))
         }
@@ -55,14 +57,14 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 
-async fn format_data() -> Result<(String, Uuid)> {
-    let timestamp = get_timestamp().await?;
-    let hash: Uuid = get_hash().await?;
+async fn format_data() -> Result<(String, i32)> {
+    let string = get_string().await?;
+    let pongs = get_pongs().await?;
 
-    Ok((timestamp, hash))
+    Ok((string, pongs))
 }
 
-async fn get_timestamp() -> Result<String> {
+async fn get_string() -> Result<String> {
     match File::open(FILE_PATH).await {
         Ok(mut file) => {
             info!("Text file found.");
@@ -71,11 +73,23 @@ async fn get_timestamp() -> Result<String> {
 
             Ok(contents)
         }
-        Err(e) => Err(anyhow!("Unable to open file. {:?}", e)),
+        Err(e) => Err(anyhow!("Unable to open file: {:?}. {:?}", FILE_PATH, e)),
     }
 }
 
-async fn get_hash() -> Result<Uuid> {
-    let hash = Uuid::new_v4();
-    Ok(hash)
+async fn get_pongs() -> Result<i32> {
+    match File::open(PONG_PATH).await {
+        Ok(mut file) => {
+            info!("Pongs file found.");
+
+            let mut contents = String::new();
+            file.read_to_string(&mut contents).await?;
+
+            match contents.parse() {
+                Ok(value) => Ok(value),
+                Err(e) => Err(anyhow!("Invalid file contents. {:?}", e)),
+            }
+        }
+        Err(e) => Err(anyhow!("Unable to open file: {:?}. {:?}", PONG_PATH, e)),
+    }
 }

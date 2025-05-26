@@ -13,16 +13,17 @@ spec:
         app: log-output
     spec:
       volumes:
-        - name: shared-image
-          emptyDir: {}
+        - name: pv-image
+          persistentVolumeClaim:
+            claimName: image-claim
       containers:
         - name: create-file
-          image: taas93/create-file:9f92839a-98dd-47fe-8b42-0e51f034df8e
+          image: taas93/create-file:85444adf-1f77-4a82-b8de-5c29f137367b
           volumeMounts:
-            - name: shared-image
+            - name: pv-image
               mountPath: /usr/local/bin/files
         - name: file-output
-          image: taas93/file-output:b05fcd3a-986f-4ba1-82dd-64e889af37d0
+          image: taas93/file-output:93c40689-f4c3-42e7-a82f-519ba8556e58
           volumeMounts:
-            - name: shared-image
+            - name: pv-image
               mountPath: /usr/local/bin/files

@@ -12,9 +12,16 @@ spec:
       labels:
         app: ping-pong
     spec:
+      volumes:
+        - name: pv-image
+          persistentVolumeClaim:
+            claimName: image-claim
       containers:
         - name: ping-pong
-          image: taas93/ping-pong:5135afdf-8695-4c6c-84ed-165ba0359628
+          image: taas93/ping-pong:93734fad-a88c-4c34-be20-2d3447f92c9c
+          volumeMounts:
+            - name: pv-image
+              mountPath: /usr/local/bin/files
           env:
             - name: PORT
               value: "3006"

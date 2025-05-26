@@ -3,12 +3,16 @@ use anyhow::Result;
 use chrono::Utc;
 use dotenvy::dotenv;
 use log::{error, info};
-use std::io::prelude::*;
-use std::{env, fs::OpenOptions};
-use tokio::fs::create_dir_all;
+use std::env;
+use std::io::Write;
+use tokio::{
+    fs::{create_dir_all, OpenOptions},
+    io::AsyncWriteExt,
+};
 use tokio_cron_scheduler::{Job, JobScheduler};
+use uuid::Uuid;
 
-const FILE_PATH: &str = "./files/file.txt";
+const FILE_PATH: &str = "./files/hash.txt";
 const CRON_EXPRESSION: &str = "*/5 * * * * *";
 const DEFAULT_PORT: u16 = 8083;
 
@@ -45,30 +49,36 @@ async fn main() -> std::io::Result<()> {
 
 async fn create_schedule() -> Result<()> {
     let schedule = JobScheduler::new().await?;
+    let hash = Uuid::new_v4();
 
     schedule
-        .add(Job::new_async(CRON_EXPRESSION, |_job_id, _scheduler| {
-            Box::pin(async move {
-                match generate_timestamp().await {
-                    Ok(_) => info!("File updated"),
-                    Err(e) => error!("Unable to update file. {:?}", e),
-                }
-            })
-        })?)
+        .add(Job::new_async(
+            CRON_EXPRESSION,
+            move |_job_id, _schedulerenv| {
+                Box::pin(async move {
+                    match update_file(hash).await {
+                        Ok(_) => info!("File updated"),
+                        Err(e) => error!("Unable to update file. {:?}", e),
+                    }
+                })
+            },
+        )?)
         .await?;
     schedule.start().await?;
     Ok(())
 }
 
-async fn generate_timestamp() -> Result<()> {
+async fn update_file(hash: Uuid) -> Result<()> {
     let mut file = OpenOptions::new()
         .read(true)
         .write(true)
         .create(true)
         .truncate(true)
         .open(FILE_PATH)
-        .unwrap();
+        .await?;
     let timestamp: chrono::DateTime<Utc> = Utc::now();
-    write!(file, "{timestamp:?}").expect("Cannot write to file");
+    let mut buf: Vec<u8> = Vec::<u8>::new();
+    write!(buf, "{timestamp:?}: {hash:?}")?;
+    file.write(&buf).await?;
     Ok(())
 }
