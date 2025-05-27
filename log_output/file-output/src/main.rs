@@ -6,8 +6,8 @@ use std::env;
 use tokio::{fs::File, io::AsyncReadExt};
 
 const FILE_PATH: &str = "./files/hash.txt";
-const PONG_PATH: &str = "./files/counter.txt";
 const DEFAULT_PORT: u16 = 8080;
+const DEFAULT_PINGPONG_URL: &str = "http://localhost:3006/";
 
 #[get("/")]
 async fn index() -> HttpResponse {
@@ -78,18 +78,8 @@ async fn get_string() -> Result<String> {
 }
 
 async fn get_pongs() -> Result<i32> {
-    match File::open(PONG_PATH).await {
-        Ok(mut file) => {
-            info!("Pongs file found.");
+    let url: String = env::var("PINGPONG_URL").unwrap_or(DEFAULT_PINGPONG_URL.to_owned());
 
-            let mut contents = String::new();
-            file.read_to_string(&mut contents).await?;
-
-            match contents.parse() {
-                Ok(value) => Ok(value),
-                Err(e) => Err(anyhow!("Invalid file contents. {:?}", e)),
-            }
-        }
-        Err(e) => Err(anyhow!("Unable to open file: {:?}. {:?}", PONG_PATH, e)),
-    }
+    let result = reqwest::get(url).await?.text().await?.parse()?;
+    Ok(result)
 }

@@ -23,7 +23,10 @@ spec:
             - name: pv-image
               mountPath: /usr/local/bin/files
         - name: file-output
-          image: taas93/file-output:93c40689-f4c3-42e7-a82f-519ba8556e58
+          image: taas93/file-output:c3f332a4-f60c-4b58-9334-7a2cf8659774
           volumeMounts:
             - name: pv-image
               mountPath: /usr/local/bin/files
+          env:
+            - name: PINGPONG_URL
+              value: "http://ping-pong-svc:2345"
