@@ -32,7 +32,7 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 #### Networking between pods
 
 - [2.1. Connecting pods](https://github.com/dev0T/DwK-2025/tree/2.1/log_output)
-- [2.2. The project, step 8]()
+- [2.2. The project, step 8](https://github.com/dev0T/DwK-2025/tree/2.2/the_project)
 
 #### Organizing a cluster
 

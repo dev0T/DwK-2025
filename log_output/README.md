@@ -42,10 +42,13 @@ docker buildx build -t <user>/<app>:<tag> <path> --push
 
 ## K8s
 
-
 After creating a cluster, make sure the k8s node has the `/tmp/kube` folder present by running:
 
 `docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube`
+
+Create the namespace for the services:
+
+`kubectl create namespace exercises`
 
 To run the services, run the following command on log-output folder:
 

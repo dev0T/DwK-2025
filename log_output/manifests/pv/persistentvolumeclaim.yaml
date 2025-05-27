@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: exercises
   name: image-claim
 spec:
   storageClassName: log-output-pv
