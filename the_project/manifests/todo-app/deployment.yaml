@@ -18,10 +18,12 @@ spec:
             claimName: image-claim
       containers:
         - name: todo-app
-          image: taas93/todo-app:1c2b5dff-44a4-42cb-85d3-1c21893f3f4b
+          image: taas93/todo-app:93251ab7-3a4b-4e64-b92d-90e565c852d6
           volumeMounts:
             - name: shared-files
               mountPath: /usr/local/bin/static/images
           env:
             - name: PORT
               value: "3003"
+            - name: BACKEND_URL
+              value: "http://todo-backend-svc:2345/api"
