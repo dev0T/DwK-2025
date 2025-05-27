@@ -36,7 +36,7 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 
 #### Organizing a cluster
 
-- [2.3. Keep them separated]()
+- [2.3. Keep them separated](https://github.com/dev0T/DwK-2025/tree/2.3/log_output)
 - [2.4. The project, step 9]()
 
 #### Configuring applications
