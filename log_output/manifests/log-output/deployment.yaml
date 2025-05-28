@@ -17,6 +17,9 @@ spec:
         - name: pv-image
           persistentVolumeClaim:
             claimName: image-claim
+        - name: config
+          configMap:
+            name: log-output-cm
       containers:
         - name: create-file
           image: taas93/create-file:85444adf-1f77-4a82-b8de-5c29f137367b
@@ -24,10 +27,21 @@ spec:
             - name: pv-image
               mountPath: /usr/local/bin/files
         - name: file-output
-          image: taas93/file-output:c3f332a4-f60c-4b58-9334-7a2cf8659774
+          image: taas93/file-output:6572720b-9cfd-47bb-be64-6b05e9f54069
           volumeMounts:
             - name: pv-image
               mountPath: /usr/local/bin/files
+            - name: config
+              mountPath: /usr/local/bin/config
+              readOnly: true
           env:
             - name: PINGPONG_URL
-              value: "http://ping-pong-svc:2345"
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-cm
+                  key: pingpong_url
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-cm
+                  key: message

@@ -13,10 +13,6 @@ spec:
       labels:
         app: ping-pong
     spec:
-      volumes:
-        - name: pv-image
-          persistentVolumeClaim:
-            claimName: image-claim
       containers:
         - name: ping-pong
           image: taas93/ping-pong:6b525450-01ba-4574-8766-4db103ba204a

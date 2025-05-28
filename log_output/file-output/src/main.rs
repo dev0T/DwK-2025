@@ -8,12 +8,17 @@ use tokio::{fs::File, io::AsyncReadExt};
 const FILE_PATH: &str = "./files/hash.txt";
 const DEFAULT_PORT: u16 = 8080;
 const DEFAULT_PINGPONG_URL: &str = "http://localhost:3006/";
+const CM_FILE_PATH: &str = "./config/information.txt";
 
 #[get("/")]
 async fn index() -> HttpResponse {
     match format_data().await {
-        Ok((string, pongs)) => {
-            HttpResponse::Ok().body(format!("{string}. \nPing / Pongs: {pongs}"))
+        Ok((string, pongs, file_contents, message)) => {
+            let text = format!(
+                "File content: {file_contents}\nenv variable: MESSAGE={message}\n{string}.\nPing / Pongs: {pongs}",
+            );
+
+            HttpResponse::Ok().body(text)
         }
         Err(err) => {
             HttpResponse::InternalServerError().body(format!("Internal server error: {:?}", err))
@@ -57,11 +62,13 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 
-async fn format_data() -> Result<(String, i32)> {
+async fn format_data() -> Result<(String, i32, String, String)> {
     let string = get_string().await?;
     let pongs = get_pongs().await?;
+    let file_contents = get_file_from_cm().await?.trim_end().to_string();
+    let message = get_message().await?;
 
-    Ok((string, pongs))
+    Ok((string, pongs, file_contents, message))
 }
 
 async fn get_string() -> Result<String> {
@@ -82,4 +89,25 @@ async fn get_pongs() -> Result<i32> {
 
     let result = reqwest::get(url).await?.text().await?.parse()?;
     Ok(result)
+}
+
+async fn get_file_from_cm() -> Result<String> {
+    match File::open(CM_FILE_PATH).await {
+        Ok(mut file) => {
+            info!("Text file found.");
+            let mut contents = String::new();
+            file.read_to_string(&mut contents).await?;
+
+            Ok(contents)
+        }
+        Err(e) => Err(anyhow!("Unable to open file. {:?}", e)),
+    }
+}
+
+async fn get_message() -> Result<String> {
+    let message = env::var("MESSAGE");
+    match message {
+        Ok(msg) => Ok(msg),
+        Err(e) => Err(anyhow!("Unable to read env variable MESSAGE. {:?}", e)),
+    }
 }
