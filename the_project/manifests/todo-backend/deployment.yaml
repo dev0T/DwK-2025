@@ -13,9 +13,26 @@ spec:
       labels:
         app: todo-backend
     spec:
+      volumes:
+        - name: config
+          configMap:
+            name: todo-backend-cm
       containers:
         - name: todo-backend
-          image: taas93/todo-backend:c210d369-766a-41b7-b144-c9482ff352ae
+          image: taas93/todo-backend:4ef13a26-97e3-44bd-8319-db7fa7af6dc5
           env:
             - name: PORT
-              value: "8085"
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-cm
+                  key: port
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-cm
+                  key: host
+            - name: CLIENT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-cm
+                  key: client_url

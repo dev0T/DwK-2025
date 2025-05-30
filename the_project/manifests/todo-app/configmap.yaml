@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: project
+  name: todo-app-cm
+data:
+  port: "3000"
+  host: "0.0.0.0"
+  image_dir: "./static/images"
+  image_path: "image.jpg"
+  image_api: "https://picsum.photos/400/400"
+  schedule_expression: "0 0/10 * * * *"

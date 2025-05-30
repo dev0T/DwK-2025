@@ -6,8 +6,8 @@ The application consists of two applications, `todo-app` and `todo-backend`. Bot
 
 All accept the PORT variable but have default PORT values already set as follows:
 
-- todo-app:   `8080`  (later being set to `3003`)
-- ping-pong:  `8085`
+- todo-app:      `8080` (being set through config to `3000`)
+- todo-backend:  `8085` (being set through config to `3003`)
 
 ## Development
 
