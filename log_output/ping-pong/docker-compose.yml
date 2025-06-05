@@ -1,0 +1,9 @@
+services:
+  db: #Running DB for development
+    image: postgres:17-bookworm
+    environment:
+      - POSTGRES_DB=pongs
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'

@@ -1,6 +1,7 @@
 FROM rust:latest AS builder
 WORKDIR /usr/src/ping-pong
 COPY . .
+ENV SQLX_OFFLINE=true
 RUN cargo install --path .
 
 FROM debian:bookworm-slim

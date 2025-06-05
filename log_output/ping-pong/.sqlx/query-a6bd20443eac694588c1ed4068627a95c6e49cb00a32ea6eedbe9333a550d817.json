@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE pongs SET pongs = pongs + 1 WHERE id = 1 RETURNING pongs",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "pongs",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "a6bd20443eac694588c1ed4068627a95c6e49cb00a32ea6eedbe9333a550d817"
+}

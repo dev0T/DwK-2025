@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: exercises
+  name: ping-pong-cm
+data:
+  port: "3006"
+  database_host: "postgres-svc"
+  database_port: "5432"
+  database_user: "postgres"
+  database_name: "pongs"

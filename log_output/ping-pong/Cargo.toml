@@ -3,9 +3,37 @@ name = "ping-pong"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+path = "src/main.rs"
+name = "ping-pong"
+
 [dependencies]
 actix-files = "0.6"
 actix-web = "4.11"
+anyhow = "1.0"
+config = "0.15"
 dotenvy = "0.15"
 env_logger = "0.11"
 log = "0.4"
+secrecy = { version = "0.10", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+sqlx = { version = "0.8", default-features = false, features = [
+  "runtime-tokio-rustls",
+  "macros",
+  "postgres",
+  "uuid",
+  "chrono",
+  "migrate",
+] }
+tokio = { version = "1.45", features = ["macros", "rt-multi-thread"] }
+uuid = { version = "1.17", features = ["v4"] }
+
+[dev-dependencies]
+reqwest = { version = "0.12", features = [
+  "blocking",
+  "stream",
+  "rustls-tls",
+], default-features = false }

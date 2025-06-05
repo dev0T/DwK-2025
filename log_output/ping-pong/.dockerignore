@@ -1,2 +1,4 @@
 target/
 Dockerfile
+.env
+docker-compose.yml
