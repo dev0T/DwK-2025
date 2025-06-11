@@ -1,6 +1,7 @@
 FROM rust:bookworm AS builder
 WORKDIR /usr/src/todo-backend
 COPY . .
+ENV SQLX_OFFLINE=true
 RUN cargo install --path .
 
 FROM debian:bookworm-slim

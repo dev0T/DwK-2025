@@ -1,15 +1,11 @@
 use crate::app_config::Settings;
-use crate::models::todo::Todo;
+use crate::db::connect_to_db;
 use crate::routes;
 use actix_cors::Cors;
 use actix_web::dev::Server;
 use actix_web::{App, HttpServer, middleware, web};
+use sqlx::PgPool;
 use std::net::TcpListener;
-use std::sync::Mutex;
-
-pub struct AppState {
-    pub todos: Mutex<Vec<Todo>>,
-}
 
 pub struct Application {
     port: u16,
@@ -19,9 +15,10 @@ pub struct Application {
 impl Application {
     pub async fn build(config: Settings) -> Result<Self, anyhow::Error> {
         let listener = TcpListener::bind((config.host, config.port))?;
+        let connection = connect_to_db(&config.database).await;
         let address = listener.local_addr().unwrap();
         log::info!("Starting HTTP server at {:?}", address);
-        let server = start_server(listener).await?;
+        let server = start_server(listener, connection).await?;
 
         Ok(Self {
             port: address.port(),
@@ -37,10 +34,11 @@ impl Application {
     }
 }
 
-async fn start_server(listener: TcpListener) -> Result<Server, std::io::Error> {
-    let state = web::Data::new(AppState {
-        todos: Mutex::new(Vec::new()),
-    });
+async fn start_server(
+    listener: TcpListener,
+    connection_pool: PgPool,
+) -> Result<Server, std::io::Error> {
+    let db_pool = web::Data::new(connection_pool);
 
     let server = HttpServer::new(move || {
         let cors = Cors::default().allowed_origin_fn(|origin, _req_head| {
@@ -49,7 +47,7 @@ async fn start_server(listener: TcpListener) -> Result<Server, std::io::Error> {
         App::new()
             .wrap(middleware::Logger::default())
             .wrap(cors)
-            .app_data(state.clone())
+            .app_data(db_pool.clone())
             .service(
                 web::scope("/api")
                     .configure(routes::todos::service)

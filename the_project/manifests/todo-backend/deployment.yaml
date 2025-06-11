@@ -13,13 +13,9 @@ spec:
       labels:
         app: todo-backend
     spec:
-      volumes:
-        - name: config
-          configMap:
-            name: todo-backend-cm
       containers:
         - name: todo-backend
-          image: taas93/todo-backend:4ef13a26-97e3-44bd-8319-db7fa7af6dc5
+          image: taas93/todo-backend:42abae0f-9a69-4257-b6c5-de84fee51f52
           env:
             - name: PORT
               valueFrom:
@@ -36,3 +32,33 @@ spec:
                 configMapKeyRef:
                   name: todo-backend-cm
                   key: client_url
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-cm
+                  key: database_host
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-cm
+                  key: database_port
+            - name: DATABASE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-cm
+                  key: database_name
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: database_url
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: database_user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: database_password

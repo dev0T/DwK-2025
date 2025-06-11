@@ -17,12 +17,9 @@ spec:
         - name: shared-files
           persistentVolumeClaim:
             claimName: image-claim
-        - name: config
-          configMap:
-            name: todo-app-cm
       containers:
         - name: todo-app
-          image: taas93/todo-app:417254b0-eb22-4ad5-8e7d-ee6b647ee06d
+          image: taas93/todo-app:dea27076-5050-48a3-8e49-d0a0b1e4eca1
           volumeMounts:
             - name: shared-files
               mountPath: /usr/local/bin/static/images

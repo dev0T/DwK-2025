@@ -33,6 +33,14 @@ If successful, there will be a log message stating that the server is listening 
 
 ## Docker Image
 
+Before building the `todo-backend` image, run:
+
+```zsh
+cargo sqlx prepare
+```
+
+This will make sure the database migrations and queries will be available even when there's no connection to the database.
+
 To build the image and push it to docker hub simply run the following command:
 
 ```zsh
