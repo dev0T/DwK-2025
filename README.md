@@ -47,9 +47,11 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 #### StatefulSets and Jobs
 
 - [2.7. Stateful applications](https://github.com/dev0T/DwK-2025/tree/2.7/log_output)
-- [2.8. The project, step 11]()
+- [2.8. The project, step 11](https://github.com/dev0T/DwK-2025/tree/2.8/the_project)
 - [2.9 The project, step 12]()
 
 #### Monitoring
 
 - [2.10. The project, step 13]()
+
+### Chapter 3: More building blocks

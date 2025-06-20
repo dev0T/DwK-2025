@@ -1,0 +1,12 @@
+@use '@/styles/colors.scss';
+@use '@/styles/shadows.scss';
+
+.imageContainer {
+  padding: 24px;
+  width: fit-content;
+  place-self: center;
+  box-shadow: shadows.$shadow-elevation-low;
+  border: solid;
+  border-radius: 6px;
+  border-width: 1px;
+}

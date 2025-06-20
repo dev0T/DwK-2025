@@ -1,0 +1,17 @@
+@use '@/styles/colors.scss';
+
+.input {
+  width: 100%;
+  min-height: 40px;
+}
+
+.inputMessage {
+  font-size: 0.75rem;
+  padding-left: 4px;
+  color: colors.$subTextOne;
+  min-height: 25px;
+}
+
+.inputGroup {
+  display: grid;
+}

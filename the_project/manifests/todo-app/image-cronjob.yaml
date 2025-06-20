@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: project
+  name: image-cronjob
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: image-cronjob
+              image: alpine/curl:latest
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - rm -rf /tmp/image.jpg
+                - curl https://picsum.photos/200/300 -L -o /tmp/image.jpg
+              volumeMounts:
+                - name: shared-files
+                  mountPath: /tmp
+          volumes:
+            - name: shared-files
+              persistentVolumeClaim:
+                claimName: image-claim
+          restartPolicy: Never

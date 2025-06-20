@@ -1,0 +1,33 @@
+@use '@/styles/colors.scss';
+@use 'sass:map';
+
+
+.button {
+  padding: 6px 12px;
+  background-color: colors.$background;
+  display: inline-grid;
+  align-items: center;
+  justify-content: center;
+  border: solid;
+  border-width: 1px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: colors.$text;
+  font-weight: 500;
+  width: 100%;
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &:hover {
+    filter: colors.$buttonHoverFilter;
+    backdrop-filter: colors.$buttonHoverFilter;
+  }
+
+  &:active {
+    filter: colors.$buttonActiveFilter;
+    backdrop-filter: colors.$buttonActiveFilter;
+  }
+}

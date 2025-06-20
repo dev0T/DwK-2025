@@ -1,0 +1,90 @@
+@use 'colors';
+// RESET
+
+* {
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input {
+  padding: 0;
+}
+
+body {
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+//
+
+html {
+  scrollbar-color: color transparent;
+}
+
+body {
+  background-color: colors.$background;
+  color: colors.$text;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  caret-color: colors.$rosewater;
+}
+
+*::selection {
+  background-color: colors.$inputSelection;
+}
+
+.root {
+  isolation: isolate;
+}

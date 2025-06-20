@@ -29,12 +29,12 @@ spec:
             - name: PORTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgress-secrets
+                  name: todo-secrets
                   key: database_user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgress-secrets
+                  name: todo-secrets
                   key: database_password
           volumeMounts:
             - name: db-storage

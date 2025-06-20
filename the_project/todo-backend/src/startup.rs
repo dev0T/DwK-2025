@@ -1,11 +1,11 @@
 use crate::app_config::Settings;
 use crate::db::connect_to_db;
 use crate::routes;
-use actix_cors::Cors;
 use actix_web::dev::Server;
 use actix_web::{App, HttpServer, middleware, web};
 use sqlx::PgPool;
 use std::net::TcpListener;
+//use actix_cors::Cors;
 
 pub struct Application {
     port: u16,
@@ -41,12 +41,15 @@ async fn start_server(
     let db_pool = web::Data::new(connection_pool);
 
     let server = HttpServer::new(move || {
-        let cors = Cors::default().allowed_origin_fn(|origin, _req_head| {
-            origin.as_bytes().starts_with(b"http://localhost")
-        });
+        // Only for development
+        // let cors = Cors::permissive();
+        //
+        // let cors = Cors::default().allowed_origin_fn(|origin, _req_head| {
+        //     origin.as_bytes().starts_with(b"http://localhost")
+        // });
         App::new()
             .wrap(middleware::Logger::default())
-            .wrap(cors)
+            //.wrap(cors)
             .app_data(db_pool.clone())
             .service(
                 web::scope("/api")

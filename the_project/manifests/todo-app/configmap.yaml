@@ -6,7 +6,4 @@ metadata:
 data:
   port: "3000"
   host: "0.0.0.0"
-  image_dir: "/usr/local/bin/static/images"
-  image_path: "image.jpg"
-  image_api: "https://picsum.photos/400/400"
-  schedule_expression: "0 0/10 * * * *"
+  api_url: "http://localhost:2345/api/"

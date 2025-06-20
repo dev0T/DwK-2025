@@ -1,0 +1,13 @@
+.form {
+  padding: 24px;
+}
+
+.formInputsContainer {
+  display: grid;
+  width: 100%;
+  gap: 8px;
+
+  @media (width >=48rem) {
+    grid-auto-flow: column;
+  }
+}

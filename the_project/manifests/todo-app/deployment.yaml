@@ -19,10 +19,10 @@ spec:
             claimName: image-claim
       containers:
         - name: todo-app
-          image: taas93/todo-app:dea27076-5050-48a3-8e49-d0a0b1e4eca1
+          image: taas93/todo-app:9a1f5fee-f940-423d-aa01-b2313927312a
           volumeMounts:
             - name: shared-files
-              mountPath: /usr/local/bin/static/images
+              mountPath: /app/public
           env:
             - name: PORT
               valueFrom:
@@ -34,23 +34,8 @@ spec:
                 configMapKeyRef:
                   name: todo-app-cm
                   key: host
-            - name: IMAGE_DIR
+            - name: API_URL
               valueFrom:
                 configMapKeyRef:
                   name: todo-app-cm
-                  key: image_dir
-            - name: IMAGE_PATH
-              valueFrom:
-                configMapKeyRef:
-                  name: todo-app-cm
-                  key: image_path
-            - name: IMAGE_API
-              valueFrom:
-                configMapKeyRef:
-                  name: todo-app-cm
-                  key: image_api
-            - name: SCHEDULE_EXPRESSION
-              valueFrom:
-                configMapKeyRef:
-                  name: todo-app-cm
-                  key: schedule_expression
+                  key: api_url

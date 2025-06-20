@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: project
+  name: todo-job
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: hello
+              image: alpine/curl:latest
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - article=$(curl --silent --write-out "%{redirect_url}\n" https://en.wikipedia.org/wiki/Special:Random) && curl --json '{"title":"Read '${article}'"}' http://todo-backend-svc:2345/api/v1/todos
+          restartPolicy: Never

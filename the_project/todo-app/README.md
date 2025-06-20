@@ -1,28 +1,22 @@
-# Actix Server
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Default port if not provided: `8080`.
+## Getting Started
 
-## Development
+First, run the development server:
 
-The recommended way to run the server with auto-reloading with changes is by using `bacon`.
-
-```zsh
-bacon run-long
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Building
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-From the project root, run the following:
-
-```zsh
-# Compile
-cargo build --release
-
-# Run
-cargo run --release
-```
-
-If successful, there will be a log message stating that the server is listening on the URL and PORT provided.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 ## Docker Image
 
@@ -30,12 +24,4 @@ To build the server docker image and push it to docker hub simply run the follow
 
 ```zsh
 docker buildx build -t <user>/todo-app:<tag> . --push
-```
-
-## K8s
-
-To run the services, run the following command on the_project folder:
-
-```zsh
-kubectl apply -Rf manifests
 ```
