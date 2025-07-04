@@ -2,9 +2,12 @@ use crate::app_config::Settings;
 use crate::db::connect_to_db;
 use crate::routes;
 use actix_web::dev::Server;
-use actix_web::{App, HttpServer, middleware, web};
+use actix_web::{App, HttpServer, web};
 use sqlx::PgPool;
 use std::net::TcpListener;
+use tracing::info;
+use tracing_actix_web::TracingLogger;
+
 //use actix_cors::Cors;
 
 pub struct Application {
@@ -17,7 +20,7 @@ impl Application {
         let listener = TcpListener::bind((config.host, config.port))?;
         let connection = connect_to_db(&config.database).await;
         let address = listener.local_addr().unwrap();
-        log::info!("Starting HTTP server at {:?}", address);
+        info!("Starting HTTP server at {:?}", address);
         let server = start_server(listener, connection).await?;
 
         Ok(Self {
@@ -48,7 +51,7 @@ async fn start_server(
         //     origin.as_bytes().starts_with(b"http://localhost")
         // });
         App::new()
-            .wrap(middleware::Logger::default())
+            .wrap(TracingLogger::default())
             //.wrap(cors)
             .app_data(db_pool.clone())
             .service(

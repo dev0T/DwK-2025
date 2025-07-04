@@ -7,11 +7,15 @@ pub struct TodoTitle(String);
 
 impl TodoTitle {
     pub fn parse(title: String) -> Result<TodoTitle, String> {
-        let is_empty = title.trim().is_empty();
-        let is_too_long = title.graphemes(true).count() > 140;
+        let size = title.trim().graphemes(true).count();
 
-        if is_empty || is_too_long {
-            Err(format!("Error while parsing string"))
+        if size == 0 {
+            Err(format!("Title is empty."))
+        } else if size > 140 {
+            Err(format!(
+                "Title is too long. Max size is 140, got {:?}.",
+                size
+            ))
         } else {
             Ok(Self(title))
         }

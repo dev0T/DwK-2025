@@ -1,6 +1,6 @@
 use actix_web::{HttpResponse, web};
-use log::error;
 use sqlx::PgPool;
+use tracing::error;
 
 use crate::models::todo::Todo;
 

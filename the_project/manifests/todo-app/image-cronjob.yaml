@@ -4,7 +4,7 @@ metadata:
   namespace: project
   name: image-cronjob
 spec:
-  schedule: "0 * * * *"
+  schedule: "*/10 * * * *"
   jobTemplate:
     spec:
       template:
@@ -16,8 +16,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - rm -rf /tmp/image.jpg
-                - curl https://picsum.photos/200/300 -L -o /tmp/image.jpg
+                - rm -rf /tmp/image.jpg && curl https://picsum.photos/200/300 -L -o /tmp/image.jpg
               volumeMounts:
                 - name: shared-files
                   mountPath: /tmp

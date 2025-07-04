@@ -19,7 +19,7 @@ spec:
             claimName: image-claim
       containers:
         - name: todo-app
-          image: taas93/todo-app:9a1f5fee-f940-423d-aa01-b2313927312a
+          image: taas93/todo-app:95ae6192-5484-41ac-86ad-f05f341cc678
           volumeMounts:
             - name: shared-files
               mountPath: /app/public

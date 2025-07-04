@@ -2,11 +2,14 @@ use anyhow::Result;
 use dotenvy::dotenv;
 use todo_backend::app_config::get_app_config;
 use todo_backend::startup::Application;
+use todo_backend::telemetry::{get_subscriber, init_subscriber};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     dotenv().ok();
-    env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
+
+    let subscriber = get_subscriber("todo-app".into(), "info".into());
+    init_subscriber(subscriber);
 
     let config = get_app_config().expect("Unable to get configuration.");
     let application = Application::build(config).await?;
