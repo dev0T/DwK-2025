@@ -7,4 +7,4 @@ data:
   information.txt: |
     This text was inside a file
   message: Hello world!
-  pingpong_url: "http://ping-pong-svc:2345"
+  pingpong_url: "http://ping-pong-svc:80"
