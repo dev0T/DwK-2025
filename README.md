@@ -48,10 +48,76 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 
 - [2.7. Stateful applications](https://github.com/dev0T/DwK-2025/tree/2.7/log_output)
 - [2.8. The project, step 11](https://github.com/dev0T/DwK-2025/tree/2.8/the_project)
-- [2.9 The project, step 12]()
+- [2.9 The project, step 12](https://github.com/dev0T/DwK-2025/tree/2.9/the_project)
 
 #### Monitoring
 
-- [2.10. The project, step 13]()
+- [2.10. The project, step 13](https://github.com/dev0T/DwK-2025/tree/2.10/the_project)
 
-### Chapter 3: More building blocks
+### Chapter 4: To the cloud
+
+#### Introduction to Google Kubernetes Engine
+
+- [3.1. Pingpong GKE](https://github.com/dev0T/DwK-2025/tree/3.1/log_output)
+- [3.2. Back to Ingress](https://github.com/dev0T/DwK-2025/tree/3.2/log_output)
+- [3.3. To the Gateway](https://github.com/dev0T/DwK-2025/tree/3.3/log_output)
+- [3.4. Rewritten routing](https://github.com/dev0T/DwK-2025/tree/3.4/log_output)
+
+#### Deployment Pipeline
+
+- [3.5. The project, step 14]()
+- [3.6. The project, step 15]()
+- [3.7. The project, step 16]()
+- [3.8. The project, step 17]()
+
+#### GKE features
+
+
+- [3.9. DBaaS vs DIY]()
+- [3.10. The project, step 18]()
+- [3.11. The project, step 19]()
+- [3.12. The project, step 20]()
+
+### Chapter 5: GitOps and friends
+
+#### Update Strategies and Prometheus
+
+- [4.1. Readines probe]()
+- [4.2. The project, step 21]()
+- [4.3. Prometheus]()
+- [4.4. Your canary]()
+- [4.5. The project, step 22]()
+
+#### Messaging Systems
+
+- [4.6. The project, step 23]()
+
+#### GitOps
+
+- [4.7. Baby steps to GitOps]()
+- [4.8. The project, step 24]()
+- [4.9. The project, step 25]()
+- [4.10. The project, the grande finale]()
+
+### Chapter 6: Under the hood
+
+#### Custom Resource Definitions
+
+- [5.1. DIY CRD & Controller]()
+
+#### Service Mesh
+
+- [5.2. Getting started with Istio service mesh]()
+- [5.3. Log app, the Service Mesh Edition]()
+- [5.4. Wikipedia with init and sidecar]()
+
+#### Beyond Kubernetes
+
+- [5.5. Platform comparison]()
+- [5.6. Trying serverless]()
+- [5.7. Deploy to serverless]()
+- [5.8. Landscape]()
+
+#### The end
+
+- [5.9. The end]()
