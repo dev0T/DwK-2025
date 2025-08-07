@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: taas93/ping-pong:07e92ef5-9b30-4357-aeca-8fc6ecc6981b
+          image: taas93/ping-pong:43449572-6c75-40ea-9f85-2bef03e50f19
           env:
             - name: PORT
               valueFrom:

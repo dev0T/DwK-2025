@@ -14,9 +14,9 @@ pub async fn start_server(
         App::new()
             .wrap(middleware::Logger::default())
             .app_data(db_pool.clone())
-            .route("/pingpong", web::get().to(pingpong))
+            .route("/", web::get().to(pingpong))
             .route("/health", web::get().to(health_check))
-            .route("/", web::get().to(pongs))
+            .route("/pongs", web::get().to(pongs))
     })
     .listen(listener)?
     .run();
