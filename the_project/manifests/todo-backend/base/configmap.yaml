@@ -6,7 +6,7 @@ metadata:
 data:
   port: "3003"
   host: "0.0.0.0"
-  client_url: "http://todo-app-svc:2345/"
+  client_url: "http://todo-app-svc:80"
   database_host: "postgres-svc"
   database_name: "todos"
   database_port: "5432"

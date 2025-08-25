@@ -54,6 +54,7 @@ async fn start_server(
             .wrap(TracingLogger::default())
             //.wrap(cors)
             .app_data(db_pool.clone())
+            .configure(routes::health::service)
             .service(
                 web::scope("/api")
                     .configure(routes::todos::service)

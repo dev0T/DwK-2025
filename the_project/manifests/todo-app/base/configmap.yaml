@@ -6,4 +6,3 @@ metadata:
 data:
   port: "3000"
   host: "0.0.0.0"
-  api_url: "http://localhost:2345/api/"

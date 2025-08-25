@@ -4,7 +4,7 @@ use actix_web::{
 };
 
 pub fn service(cfg: &mut ServiceConfig) {
-    cfg.route("/health", web::get().to(health_check));
+    cfg.route("/", web::get().to(health_check));
 }
 
 async fn health_check() -> HttpResponse {

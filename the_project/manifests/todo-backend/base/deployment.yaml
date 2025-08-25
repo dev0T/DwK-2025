@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: taas93/todo-backend:19a2c425-3e42-4119-82f4-c7945e3d14e7
+          image: project/backend
           env:
             - name: PORT
               valueFrom:
