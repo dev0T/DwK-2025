@@ -72,6 +72,6 @@ jobs:
         run: |-
           kustomize edit set image PROJECT/TODO_APP_IMAGE=$TODO_APP_IMAGE_TAG
           kustomize edit set image PROJECT/TODO_BACKEND_IMAGE=$TODO_BACKEND_IMAGE_TAG
-          kustomize build . | kubectl apply -f -
+          kustomize build ./manifests | kubectl apply -f -
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
