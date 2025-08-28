@@ -11,8 +11,7 @@ env:
   GKE_ZONE: europe-north1-b
   REGISTRY: europe-north1-docker.pkg.dev
   REPOSITORY: my-repo
-  IMAGE: dwk-environments
-  SERVICE: dwk-environments
+  SERVICE: the_project
   BRANCH: ${{ github.ref_name }}
   TODO_APP_IMAGE: todo-app
   TODO_BACKEND_IMAGE: todo-backend
