@@ -52,7 +52,7 @@ jobs:
         run: echo "TODO_APP_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and Publish
-        working-directory: project
+        working-directory: the_project
         run: docker buildx build -t $TODO_APP_IMAGE_TAG --push ./todo-app
 
         # todo-backend
@@ -61,7 +61,7 @@ jobs:
         run: echo "TODO_BACKEND_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and Publish
-        working-directory: project
+        working-directory: the_project
         run: docker buildx build -t $TODO_BACKEND_IMAGE_TAG --push ./todo-backend
 
       - name: Set up Kustomize
