@@ -2,6 +2,7 @@ name: Release application
 
 on:
   push:
+  workflow_dispatch:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -20,6 +21,7 @@ jobs:
   build-publish-deploy:
     name: Build, Publish and Deploy
     runs-on: ubuntu-latest
+    environment: my-env
 
     steps:
       - name: Checkout
