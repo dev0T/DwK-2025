@@ -68,10 +68,10 @@ jobs:
         uses: imranismail/setup-kustomize@v2.1.0
 
       - name: Deploy
-        working-directory: the_project
+        working-directory: the_project/manifests
         run: |-
           kustomize edit set image PROJECT/TODO_APP_IMAGE=$TODO_APP_IMAGE_TAG
           kustomize edit set image PROJECT/TODO_BACKEND_IMAGE=$TODO_BACKEND_IMAGE_TAG
-          kustomize build ./manifests | kubectl apply -f -
+          kustomize build . | kubectl apply -f -
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
