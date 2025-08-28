@@ -7,8 +7,6 @@ resources:
   - todo-backend
   - todo-app
   - ingress.yaml
-# images:
-#   - name: project/backend
-#     newName: taas93/todo-backend:8f85d47e-8977-4599-b1aa-6ffa81562681
-#   - name: project/frontend
-#     newName: taas93/todo-app:868446b6-568f-40c4-83c9-a6dac3d083da
+images:
+  - name: project/backend
+  - name: project/frontend
