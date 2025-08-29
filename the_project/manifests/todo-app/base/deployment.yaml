@@ -21,7 +21,7 @@ spec:
             claimName: image-claim
       containers:
         - name: todo-app
-          image: project/frontend
+          image: project/todo-app
           volumeMounts:
             - name: shared-files
               mountPath: /app/public
