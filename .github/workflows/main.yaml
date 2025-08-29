@@ -13,9 +13,9 @@ env:
   REPOSITORY: my-repo
   BRANCH: ${{ github.ref_name }}
   TODO_APP_IMAGE: todo-app
-  TODO_APP_SERVICE: todo-app-svc
+  TODO_APP_SERVICE: todo-app-dep
   TODO_BACKEND_IMAGE: todo-backend
-  TODO_BACKEND_SERVICE: todo-backend-svc
+  TODO_BACKEND_SERVICE: todo-backend-dep
 
 jobs:
   build-publish-deploy:
