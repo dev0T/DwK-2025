@@ -68,8 +68,15 @@ jobs:
       - name: Deploy
         working-directory: the_project/manifests
         run: |-
+          NAMESPACE=$(echo "${GITHUB_REF#refs/heads/}")
+          if [[ "$NAMESPACE" == "main" ]]; then
+            NAMESPACE="project"
+          fi
+          kubectl create namespace $NAMESPACE || true
+          kubectl config set-context --current --namespace=$NAMESPACE
+          kustomize edit set namespace $NAMESPACE
           kustomize edit set image project/todo-app=$TODO_APP_IMAGE_TAG
           kustomize edit set image project/todo-backend=$TODO_BACKEND_IMAGE_TAG
           kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment      
+          kubectl rollout status deployment --namespace $NAMESPACE      
           kubectl get services -o wide
