@@ -7,6 +7,8 @@ resources:
   - todo-backend
   - todo-app
   - ingress.yaml
-images:
-  - name: project/backend
-  - name: project/frontend
+# images:
+#   - name: project/backend
+#     newName: europe-north1-docker.pkg.dev/project/my-repo/todo-app
+#   - name: project/frontend
+#     newName: europe-north1-docker.pkg.dev/project/my-repository/todo-backend
