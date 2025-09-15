@@ -1,0 +1,36 @@
+name: Branch Deleted
+on:
+  delete:
+jobs:
+  delete-env:
+    name: Delete environment
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    environment: my-env
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ env.GKE_SA_KEY }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 'Use gcloud CLI'
+        run: gcloud info
+
+      - name: 'Get GKE credentials'
+        uses: 'google-github-actions/get-gke-credentials@v2'
+        with:
+          cluster_name: '${{ env.GKE_CLUSTER }}'
+          project_id: '${{ env.PROJECT_ID }}'
+          location: '${{ env.GKE_ZONE }}'
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2.1.0
+
+      - name: Cleanup
+        run: |-
+          NAMESPACE=$(echo "${GITHUB_REF#refs/heads/}")
+          kubectl delete namespace $NAMESPACE --ignore-not-found

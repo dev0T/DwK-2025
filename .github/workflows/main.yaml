@@ -73,10 +73,10 @@ jobs:
             NAMESPACE="project"
           fi
           kubectl create namespace $NAMESPACE || true
-          kubectl config set-context --current --namespace=$NAMESPACE
+          kubectl config set-context --current -n=$NAMESPACE
           kustomize edit set namespace $NAMESPACE
           kustomize edit set image project/todo-app=$TODO_APP_IMAGE_TAG
           kustomize edit set image project/todo-backend=$TODO_BACKEND_IMAGE_TAG
-          kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment --namespace $NAMESPACE      
+          kustomize build . | kubectl apply -n $NAMESPACE -f -
+          kubectl rollout status deployment -n $NAMESPACE      
           kubectl get services -o wide
