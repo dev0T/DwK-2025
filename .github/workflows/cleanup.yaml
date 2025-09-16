@@ -1,6 +1,13 @@
 name: Branch Deleted
 on:
   delete:
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+
 jobs:
   delete-env:
     name: Delete environment
