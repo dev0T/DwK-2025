@@ -65,10 +65,10 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 
 #### Deployment Pipeline
 
-- [3.5. The project, step 14]()
-- [3.6. The project, step 15]()
-- [3.7. The project, step 16]()
-- [3.8. The project, step 17]()
+- [3.5. The project, step 14](https://github.com/dev0T/DwK-2025/tree/3.5/log_output)
+- [3.6. The project, step 15](https://github.com/dev0T/DwK-2025/tree/3.6/.github/workflows)
+- [3.7. The project, step 16](https://github.com/dev0T/DwK-2025/tree/3.7/.github)
+- [3.8. The project, step 17](https://github.com/dev0T/DwK-2025/tree/3.8/.github/workflows)
 
 #### GKE features
 
@@ -121,3 +121,4 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 #### The end
 
 - [5.9. The end]()
+
