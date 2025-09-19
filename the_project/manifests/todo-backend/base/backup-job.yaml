@@ -26,13 +26,12 @@ spec:
               command: ["/bin/sh", "-c"]
               volumeMounts:
                 - name: todo-secrets-vlm
-                  mountPath: /usr/src/app
-                  readOnly: true
+                  mountPath: /usr/src/app/secrets
               args:
                 - |
                   export BACKUP_FILE="/usr/src/app/backup-$(date +%Y-%m-%d).sql"
                   pg_dump -v ${DATABASE_URL} > "${BACKUP_FILE}"
-                  gcloud auth activate-service-account --key-file /usr/src/appkey.json
+                  gcloud auth activate-service-account --key-file /usr/src/app/secrets/key.json
                   gcloud storage cp "${BACKUP_FILE}" ${BACKUP_URL}
                   echo "Database backup ${BACKUP_FILE} created at ${BACKUP_URL}"
           restartPolicy: "OnFailure"
