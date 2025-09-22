@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: todo-job-backup
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup
+              image: taas93/gcsdk-w-postgres-client:6b3bc848-9129-4466-a154-fb9a04b3206b
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: todo-secrets
+                      key: database_url
+                - name: BACKUP_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: todo-secrets
+                      key: backup_url
+              command: ["/bin/sh", "-c"]
+              volumeMounts:
+                - name: todo-secrets-vlm
+                  mountPath: /usr/src/app/secrets
+              args:
+                - |
+                  export BACKUP_FILE="/usr/src/app/backup-$(date +%Y-%m-%d).sql"
+                  pg_dump -v ${DATABASE_URL} > "${BACKUP_FILE}"
+                  gcloud auth activate-service-account --key-file /usr/src/app/secrets/key.json
+                  gcloud storage cp "${BACKUP_FILE}" ${BACKUP_URL}
+          restartPolicy: "OnFailure"
+          volumes:
+            - name: todo-secrets-vlm
+              secret:
+                secretName: todo-secrets
+                optional: false
