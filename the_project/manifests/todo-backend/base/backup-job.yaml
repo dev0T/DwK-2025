@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
             - name: backup
-              image: taas93/gcsdk-w-postgres-client
+              image: taas93/gcsdk-w-postgres-client:e1553e94-bd9a-4ee8-800e-092c9b83bffb
               imagePullPolicy: IfNotPresent
               env:
                 - name: DATABASE_URL
