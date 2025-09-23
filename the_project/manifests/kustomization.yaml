@@ -5,3 +5,4 @@ resources:
   - todo-backend
   - todo-app
   - ingress.yaml
+  - gateway.yaml
