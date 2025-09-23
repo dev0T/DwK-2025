@@ -17,9 +17,12 @@ spec:
         - name: postgres
           image: postgres:17-bookworm
           resources:
-            limits:
+            requests:
               cpu: "10m"
               memory: "100Mi"
+            limits:
+              cpu: "50m"
+              memory: "500Mi"
           ports:
             - name: web
               containerPort: 5432

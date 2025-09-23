@@ -22,8 +22,11 @@ spec:
         - name: todo-app
           image: project/todo-app
           resources:
-            limits:
+            requests:
               cpu: "10m"
+              memory: "50Mi"
+            limits:
+              cpu: "50m"
               memory: "100Mi"
           volumeMounts:
             - name: shared-files
