@@ -21,6 +21,10 @@ spec:
       containers:
         - name: todo-app
           image: project/todo-app
+          resources:
+            limits:
+              cpu: "10m"
+              memory: "100Mi"
           volumeMounts:
             - name: shared-files
               mountPath: /app/public
