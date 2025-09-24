@@ -4,5 +4,6 @@ resources:
   - pv
   - todo-backend
   - todo-app
-  - gateway.yaml
-  - route.yaml
+  - ingress.yaml
+  # - gateway.yaml
+  # - route.yaml
