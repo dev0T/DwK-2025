@@ -51,7 +51,7 @@ jobs:
 
       - name: Build and Publish
         working-directory: the_project
-        run: docker buildx build -t $TODO_APP_IMAGE_TAG --push ./todo-app --cache-to type=registry, ref=$TODO_APP_IMAGE_TAG --cache-from type=registry, ref=$TODO_APP_IMAGE_TAG
+        run: docker buildx build -t $TODO_APP_IMAGE_TAG --push --cache-to type=registry, ref=$TODO_APP_IMAGE_TAG --cache-from type=registry, ref=$TODO_APP_IMAGE_TAG ./todo-app
 
         # todo-backend
 
@@ -60,7 +60,7 @@ jobs:
 
       - name: Build and Publish
         working-directory: the_project
-        run: docker buildx build -t $TODO_BACKEND_IMAGE_TAG --push ./todo-backend --cache-to type=registry, ref=$TODO_BACKEND_IMAGE_TAG --cache-from type=registry, ref=$TODO_BACKEND_IMAGE_TAG
+        run: docker buildx build -t $TODO_BACKEND_IMAGE_TAG --push --cache-to type=registry, ref=$TODO_BACKEND_IMAGE_TAG --cache-from type=registry, ref=$TODO_BACKEND_IMAGE_TAG ./todo-backend
 
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0
