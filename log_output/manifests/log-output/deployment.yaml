@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: exercises
   name: log-output-dep
 spec:
   replicas: 1
@@ -28,6 +27,12 @@ spec:
               mountPath: /usr/local/bin/files
         - name: file-output
           image: taas93/file-output:6572720b-9cfd-47bb-be64-6b05e9f54069
+          readinessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            httpGet:
+              path: /health
+              port: 8080
           volumeMounts:
             - name: pv-image
               mountPath: /usr/local/bin/files

@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  namespace: exercises
   name: pingpong-db-stset
 spec:
   serviceName: postgres-svc
@@ -52,7 +51,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: exercises
   name: postgres-svc
   labels:
     app: pingpong-db
