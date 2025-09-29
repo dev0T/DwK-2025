@@ -1,7 +1,6 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
-  namespace: exercises
   name: log-output-gateway
 spec:
   gatewayClassName: gke-l7-global-external-managed
