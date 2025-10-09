@@ -18,7 +18,7 @@ env:
   TODO_BACKEND_IMAGE: todo-backend
 
 jobs:
-  build-publish-deploy:
+  build-publish-deploy-project:
     name: Build, Publish and Deploy Project
     runs-on: ubuntu-latest
     environment: my-env

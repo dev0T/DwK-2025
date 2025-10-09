@@ -19,7 +19,7 @@ env:
   PING_PONG_IMAGE: ping-pong
 
 jobs:
-  build-publish-deploy:
+  build-publish-deploy-log-output:
     name: Build, Publish and Deploy Log Output
     runs-on: ubuntu-latest
     environment: my-env
