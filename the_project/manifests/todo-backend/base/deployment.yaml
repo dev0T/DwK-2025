@@ -22,7 +22,7 @@ spec:
             periodSeconds: 5
             httpGet:
               path: /health
-              port: 3006
+              port: 3003
           resources:
             requests:
               cpu: "10m"
