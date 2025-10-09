@@ -1,0 +1,95 @@
+name: Release Log Output application
+
+on:
+  push:
+    paths:
+      - "log_output/**"
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_SA_KEY: ${{ secrets.GKE_SA_KEY }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  REGISTRY: europe-north1-docker.pkg.dev
+  REPOSITORY: my-repo
+  BRANCH: ${{ github.ref_name }}
+  CREATE_FILE_IMAGE: create-file
+  FILE_OUTPUT_IMAGE: file-output
+  PING_PONG_IMAGE: ping-pong
+
+jobs:
+  build-publish-deploy-log-output:
+    name: Build, Publish and Deploy Log Output
+    runs-on: ubuntu-latest
+    environment: my-env
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: "${{ env.GKE_SA_KEY }}"
+
+      - name: "Set up Cloud SDK"
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: "Use gcloud CLI"
+        run: gcloud info
+
+      - name: "Get GKE credentials"
+        uses: "google-github-actions/get-gke-credentials@v2"
+        with:
+          cluster_name: "${{ env.GKE_CLUSTER }}"
+          project_id: "${{ env.PROJECT_ID }}"
+          location: "${{ env.GKE_ZONE }}"
+
+      - name: "Set up Docker Buildx"
+        run: gcloud auth configure-docker "$REGISTRY"
+
+        # create-file
+
+      - name: "Form the image name"
+        run: echo "CREATE_FILE_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$CREATE_FILE_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build and Publish
+        working-directory: log_putput
+        run: docker buildx build -t $CREATE_FILE_IMAGE_TAG --push ./create-file
+
+        # file-output
+
+      - name: "Form the image name"
+        run: echo "FILE_OUTPUT_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$FILE_OUTPUT_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build and Publish
+        working-directory: log_output
+        run: docker buildx build -t $FILE_OUTPUT_IMAGE_TAG --push ./file-output
+
+        # ping-pong
+
+      - name: "Form the image name"
+        run: echo "PING_PONG_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$PING_PONG_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build and Publish
+        working-directory: log_output
+        run: docker buildx build -t $PING_PONG_IMAGE_TAG --push ./file-output
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2.1.0
+
+      - name: Deploy
+        working-directory: log_output/manifests
+        run: |-
+          NAMESPACE=$(echo "${GITHUB_REF#refs/heads/}")
+          if [[ "$NAMESPACE" == "main" ]]; then
+            NAMESPACE="exercises"
+          fi
+          kubectl create namespace $NAMESPACE || true
+          kubectl config set-context --current --namespace=$NAMESPACE
+          kustomize edit set namespace $NAMESPACE
+          kustomize edit set image exercises/create-file=$CREATE_FILE_IMAGE
+          kustomize edit set image exercises/file-output=$FILE_OUTPUT_IMAGE
+          kustomize edit set image exercises/ping-pong=$PING_PONG_IMAGE
+          kustomize build . | kubectl apply -n $NAMESPACE -f -
+          kubectl rollout status deployment -n $NAMESPACE      
+          kubectl get services -o wide

@@ -3,12 +3,12 @@ kind: PersistentVolume
 metadata:
   name: first-pv
 spec:
-  storageClassName: log-output-pv
+  storageClassName: first-pv
   capacity:
     storage: 1Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadOnlyMany
   local:
     path: /tmp/kube
   nodeAffinity:
