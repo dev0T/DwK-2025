@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pj-pv
+  name: first-pv
 spec:
-  storageClassName: project-pv
+  storageClassName: first-pv
   capacity:
     storage: 1Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadOnlyMany
   local:
     path: /tmp/kube
   nodeAffinity:
