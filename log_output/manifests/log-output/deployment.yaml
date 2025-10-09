@@ -15,7 +15,7 @@ spec:
       volumes:
         - name: pv-image
           persistentVolumeClaim:
-            claimName: image-claim
+            claimName: log-output-vc
         - name: config
           configMap:
             name: log-output-cm
