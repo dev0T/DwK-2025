@@ -19,7 +19,7 @@ env:
 
 jobs:
   build-publish-deploy:
-    name: Build, Publish and Deploy
+    name: Build, Publish and Deploy Project
     runs-on: ubuntu-latest
     environment: my-env
 
