@@ -4,6 +4,6 @@ resources:
   - pv
   - log-output
   - ping-pong
-  # - ingress.yaml
+  #- ingress.yaml
   - gateway.yaml
   - route.yaml
