@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "project/**"
+    tags-ignore:
+      - "*.*"
   workflow_dispatch:
 
 env:
