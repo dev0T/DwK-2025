@@ -1,4 +1,4 @@
-name: Release application
+name: Release Log Output application
 
 on:
   push:
