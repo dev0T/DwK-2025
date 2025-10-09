@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "log_output/**"
+    tags-ignore:
+      - "*.*"
   workflow_dispatch:
 
 env:
@@ -53,7 +55,7 @@ jobs:
         run: echo "CREATE_FILE_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$CREATE_FILE_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and Publish
-        working-directory: log_putput
+        working-directory: log_output
         run: docker buildx build -t $CREATE_FILE_IMAGE_TAG --push ./create-file
 
         # file-output
@@ -72,7 +74,7 @@ jobs:
 
       - name: Build and Publish
         working-directory: log_output
-        run: docker buildx build -t $PING_PONG_IMAGE_TAG --push ./file-output
+        run: docker buildx build -t $PING_PONG_IMAGE_TAG --push ./ping-pong
 
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0

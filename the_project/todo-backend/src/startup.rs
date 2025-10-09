@@ -58,6 +58,9 @@ async fn start_server(
             .service(
                 web::scope("/api")
                     .configure(routes::todos::service)
+            )
+            .service(
+                web::scope("/health")
                     .configure(routes::health::service),
             )
     })
