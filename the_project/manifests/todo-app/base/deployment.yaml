@@ -17,7 +17,7 @@ spec:
       volumes:
         - name: shared-files
           persistentVolumeClaim:
-            claimName: image-claim
+            claimName: project-vc
       containers:
         - name: todo-app
           image: project/todo-app
