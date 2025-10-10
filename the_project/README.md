@@ -98,3 +98,10 @@ kubectl apply -Rf manifests
 - Need manual configuration for everything, including backups and logging.
 - Knowledge is required to garantee availability and reliability which might incur in labour costs.
 - Restoring backups might be tricky if manual intervention is needed, often relying in downtime.
+
+
+### Prometheus
+
+The query used that shows the number of pods created by StatefulSets in prometheus namespace:
+
+`sum(kube_pod_info{namespace="prometheus", created_by_kind="StatefulSet"})`

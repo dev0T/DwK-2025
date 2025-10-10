@@ -73,17 +73,17 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 #### GKE features
 
 
-- [3.9. DBaaS vs DIY]()
-- [3.10. The project, step 18]()
-- [3.11. The project, step 19]()
-- [3.12. The project, step 20]()
+- [3.9. DBaaS vs DIY](https://github.com/dev0T/DwK-2025/tree/3.9/the_project)
+- [3.10. The project, step 18](https://github.com/dev0T/DwK-2025/tree/3.11/the_project)
+- [3.11. The project, step 19](https://github.com/dev0T/DwK-2025/tree/3.11/the_project)
+- [3.12. The project, step 20](https://github.com/dev0T/DwK-2025/tree/3.12/the_project)
 
 ### Chapter 5: GitOps and friends
 
 #### Update Strategies and Prometheus
 
-- [4.1. Readines probe]()
-- [4.2. The project, step 21]()
+- [4.1. Readines probe](https://github.com/dev0T/DwK-2025/tree/4.1/log_output)
+- [4.2. The project, step 21](https://github.com/dev0T/DwK-2025/tree/4.2/the_project)
 - [4.3. Prometheus]()
 - [4.4. Your canary]()
 - [4.5. The project, step 22]()
@@ -121,4 +121,3 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 #### The end
 
 - [5.9. The end]()
-
