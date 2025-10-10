@@ -89,9 +89,9 @@ jobs:
           kubectl create namespace $NAMESPACE || true
           kubectl config set-context --current --namespace=$NAMESPACE
           kustomize edit set namespace $NAMESPACE
-          kustomize edit set image exercises/create-file=$CREATE_FILE_IMAGE
-          kustomize edit set image exercises/file-output=$FILE_OUTPUT_IMAGE
-          kustomize edit set image exercises/ping-pong=$PING_PONG_IMAGE
+          kustomize edit set image exercises/create-file=$CREATE_FILE_IMAGE_TAG
+          kustomize edit set image exercises/file-output=$FILE_OUTPUT_IMAGE_TAG
+          kustomize edit set image exercises/ping-pong=$PING_PONG_IMAGE_TAG
           kustomize build . | kubectl apply -n $NAMESPACE -f -
           kubectl rollout status deployment -n $NAMESPACE      
           kubectl get services -o wide
