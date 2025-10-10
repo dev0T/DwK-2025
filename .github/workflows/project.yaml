@@ -2,10 +2,6 @@ name: Release Project application
 
 on:
   push:
-    paths:
-      - "the_project/**"
-    tags-ignore:
-      - "*.*"
   workflow_dispatch:
 
 env:

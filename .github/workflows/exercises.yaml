@@ -2,10 +2,6 @@ name: Release Log Output application
 
 on:
   push:
-    paths:
-      - "log_output/**"
-    tags-ignore:
-      - "*.*"
   workflow_dispatch:
 
 env:
