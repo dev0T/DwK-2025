@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: taas93/ping-pong:43449572-6c75-40ea-9f85-2bef03e50f19
+          image: exercises/ping-pong
           readinessProbe:
             initialDelaySeconds: 30
             periodSeconds: 5
