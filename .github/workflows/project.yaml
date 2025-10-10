@@ -3,7 +3,7 @@ name: Release Project application
 on:
   push:
     paths:
-      - "project/**"
+      - "the_project/**"
     tags-ignore:
       - "*.*"
   workflow_dispatch:
