@@ -1,6 +1,6 @@
 {
   "db_name": "PostgreSQL",
-  "query": "SELECT * FROM todos",
+  "query": "\n        UPDATE todos SET done = NOT done WHERE id = $1 RETURNING *\n        ",
   "describe": {
     "columns": [
       {
@@ -20,7 +20,9 @@
       }
     ],
     "parameters": {
-      "Left": []
+      "Left": [
+        "Uuid"
+      ]
     },
     "nullable": [
       false,
@@ -28,5 +30,5 @@
       false
     ]
   },
-  "hash": "9a60ae96398dc07faf7360c43ffdbae23577151585dfea78e60dc4f72a49288b"
+  "hash": "8b5d06bf414767d149b4fdef0dd07fbc45a9b7fe8acc4e8196a8e2363588421f"
 }

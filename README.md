@@ -84,8 +84,8 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 
 - [4.1. Readines probe](https://github.com/dev0T/DwK-2025/tree/4.1/log_output)
 - [4.2. The project, step 21](https://github.com/dev0T/DwK-2025/tree/4.2/the_project)
-- [4.3. Prometheus]()
-- [4.4. Your canary]()
+- [4.3. Prometheus](https://github.com/dev0T/DwK-2025/tree/4.3/the_project)
+- [4.4. Your canary](https://github.com/dev0T/DwK-2025/tree/4.4/log_output)
 - [4.5. The project, step 22]()
 
 #### Messaging Systems

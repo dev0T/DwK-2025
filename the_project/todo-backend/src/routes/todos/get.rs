@@ -5,8 +5,6 @@ use tracing::error;
 use crate::models::todo::Todo;
 
 pub async fn all(db_pool: web::Data<PgPool>) -> HttpResponse {
-    // get data from DB
-
     let query_result = sqlx::query_as!(Todo, "SELECT * FROM todos")
         .fetch_all(db_pool.get_ref())
         .await;

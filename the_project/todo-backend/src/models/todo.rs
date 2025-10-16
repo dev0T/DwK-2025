@@ -43,10 +43,11 @@ impl Into<String> for TodoTitle {
 pub struct Todo {
     pub id: Uuid,
     pub title: TodoTitle,
+    pub done: bool,
 }
 
 impl Todo {
-    pub fn new(id: Uuid, title: TodoTitle) -> Self {
-        Self { id, title }
+    pub fn new(id: Uuid, title: TodoTitle, done: bool) -> Self {
+        Self { id, title, done }
     }
 }

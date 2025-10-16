@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button/Button'
 import { Todo } from '@/components/TodoList/TodoList'
 
 import styles from './CreateTodo.module.scss'
+import { API_URL } from '@/lib/consts'
 
 const newTodoSchema = z.object({
   title: z.string().max(140, {
@@ -29,13 +30,13 @@ export default function CreateTodo() {
 
   const onSubmit = async (values: newTodo) => {
     try {
-      const response = await fetch(`/api/v1/todos`, {
+      const response = await fetch(`${API_URL}/api/v1/todos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values)
       })
       if (response.status === 200) {
-        mutate<Todo[]>(`/api/v1/todos`, async todos => [
+        mutate<Todo[]>(`${API_URL}/api/v1/todos`, async todos => [
           ...(todos ?? []),
           await response.json()
         ])

@@ -26,15 +26,16 @@ pub async fn create(
 
     match title {
         Ok(title) => {
-            let new_todo: Todo = Todo::new(Uuid::new_v4(), title);
+            let new_todo: Todo = Todo::new(Uuid::new_v4(), title, false);
             let query_span = info_span!("Saving new todo in the database");
             let query_result = sqlx::query_as!(
                 Todo,
                 r#"
-                INSERT INTO todos (id, title) VALUES ($1, $2)
+                INSERT INTO todos (id, title, done) VALUES ($1, $2, $3)
                 "#,
                 new_todo.id,
-                new_todo.title.as_ref()
+                new_todo.title.as_ref(),
+                new_todo.done
             )
             .execute(db_pool.get_ref())
             .instrument(query_span)
