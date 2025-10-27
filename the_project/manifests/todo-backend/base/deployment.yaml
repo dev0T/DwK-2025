@@ -61,6 +61,11 @@ spec:
                 configMapKeyRef:
                   name: todo-backend-cm
                   key: database_name
+            - name: NATS
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-cm
+                  key: nats
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:

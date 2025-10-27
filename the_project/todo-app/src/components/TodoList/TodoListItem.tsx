@@ -1,32 +1,31 @@
 import Checkbox from '@/components/ui/Checkbox/Checkbox'
 import styles from './TodoListItem.module.scss'
-import { API_URL, fetcher } from '@/lib/consts'
+import { API_URL } from '@/lib/consts'
 import { Todo } from '@/components/TodoList/TodoList'
-import useSWR, { mutate } from 'swr'
+import useSWRMutation from 'swr/mutation'
 
 interface TodoListItemProps {
   todo: Todo
 }
 
-export default function TodoListItem({ todo }: TodoListItemProps) {
-  const { isLoading } = useSWR<Todo[]>(`${API_URL}/api/v1/todos`, fetcher)
+const updateTodo = async (url: string, { arg }: { arg: Todo }) => {
+  return fetch(`${url}/${arg.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...arg, done: !arg.done })
+  }).then(res => res.json())
+}
 
-  const handleCheckbox = async (values: Todo) => {
+export default function TodoListItem({ todo }: TodoListItemProps) {
+  const { trigger, isMutating } = useSWRMutation(
+    `${API_URL}/api/v1/todos`,
+    updateTodo
+  )
+
+  const handleCheckbox = async (todo: Todo) => {
     try {
-      const response = await fetch(`${API_URL}/api/v1/todos`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...values, done: !values.done })
-      })
-      if (response.status === 200) {
-        mutate<Todo[]>(`${API_URL}/api/v1/todos`, async todos => [
-          ...(todos ?? []),
-          await response.json()
-        ])
-      } else {
-        const content = response.body
-        console.log(`Content: ${content}`)
-      }
+      const result = await trigger(todo)
+      console.log(result)
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.log('do something?')
@@ -40,7 +39,7 @@ export default function TodoListItem({ todo }: TodoListItemProps) {
       <Checkbox
         id={todo.id}
         className={styles.todoItemCheckbox}
-        disabled={isLoading}
+        disabled={isMutating}
         checked={todo.done}
         onChange={() => handleCheckbox(todo)}
       />

@@ -11,10 +11,10 @@ path = "src/main.rs"
 name = "todo-backend"
 
 [dependencies]
+actix-cors = "0.7"
 actix-web = "4.11"
-# If attempting to test locally
-#actix-cors = "0.7"
 anyhow = "1.0"
+async-nats = "0.44"
 config = "0.15"
 dotenvy = "0.15"
 secrecy = { version = "0.10", features = ["serde"] }
@@ -41,6 +41,3 @@ tracing-subscriber = { version = "0.3", features = [
 tokio = { version = "1.45", features = ["macros", "rt-multi-thread"] }
 unicode-segmentation = "1.12"
 uuid = { version = "1.17", features = ["v4", "serde"] }
-
-[dev-dependencies]
-actix-cors = "0.7"

@@ -6,6 +6,7 @@ pub struct Settings {
     pub database: DatabaseSettings,
     pub port: u16,
     pub host: String,
+    pub nats: String,
 }
 
 #[derive(Debug, serde::Deserialize)]
