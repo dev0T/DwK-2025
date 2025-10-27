@@ -1,6 +1,7 @@
 name: Branch Deleted
 on:
-  delete:
+  #delete:
+  workflow_dispatch:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
