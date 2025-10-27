@@ -1,4 +1,5 @@
 use actix_web::{HttpResponse, web};
+use async_nats::Client;
 use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
 use tracing::{Instrument, error, info_span};
@@ -13,6 +14,7 @@ pub struct CreateTodo {
 
 pub async fn create(
     db_pool: web::Data<PgPool>,
+    nats_client: web::Data<Client>,
     create_todo_request: web::Json<CreateTodo>,
 ) -> HttpResponse {
     let request_id = Uuid::new_v4();
@@ -42,7 +44,11 @@ pub async fn create(
             .await;
 
             match query_result {
-                Ok(_result) => HttpResponse::Ok().json(new_todo),
+                Ok(_result) => {
+                    let payload = new_todo.clone().as_bytes();
+                    nats_client.publish("todos.created", payload).await.unwrap();
+                    HttpResponse::Ok().json(new_todo)
+                }
                 Err(err) => {
                     error!("Unable to execute query: {}", err);
                     HttpResponse::InternalServerError().finish()

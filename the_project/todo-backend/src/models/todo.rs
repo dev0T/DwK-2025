@@ -1,4 +1,7 @@
+use actix_web::web::Bytes;
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
+use serde_json::json;
 use unicode_segmentation::UnicodeSegmentation;
 use uuid::Uuid;
 
@@ -49,5 +52,10 @@ pub struct Todo {
 impl Todo {
     pub fn new(id: Uuid, title: TodoTitle, done: bool) -> Self {
         Self { id, title, done }
+    }
+
+    pub fn as_bytes(self) -> Bytes {
+        let bytes = serde_json::to_vec(&json!(self)).unwrap();
+        bytes.into()
     }
 }

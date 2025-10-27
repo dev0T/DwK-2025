@@ -1,11 +1,16 @@
 use actix_web::{HttpResponse, web};
+use async_nats::Client;
 use sqlx::PgPool;
 use tracing::{Instrument, error, info_span};
 use uuid::Uuid;
 
 use crate::models::todo::Todo;
 
-pub async fn done(db_pool: web::Data<PgPool>, id: web::Path<Uuid>) -> HttpResponse {
+pub async fn done(
+    db_pool: web::Data<PgPool>,
+    nats_client: web::Data<Client>,
+    id: web::Path<Uuid>,
+) -> HttpResponse {
     let request_id = Uuid::new_v4();
 
     let todo_id = id.into_inner();
@@ -28,7 +33,11 @@ pub async fn done(db_pool: web::Data<PgPool>, id: web::Path<Uuid>) -> HttpRespon
     .await;
 
     match query_result {
-        Ok(result) => HttpResponse::Ok().json(result),
+        Ok(result) => {
+            let payload = result.clone().as_bytes();
+            nats_client.publish("todos.updated", payload).await.unwrap();
+            HttpResponse::Ok().json(result)
+        }
         Err(err) => {
             error!("Unable to execute query: {}", err);
             HttpResponse::InternalServerError().finish()
