@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+  - name: exercises/create-file
+    newName: taas93/create-file
+    newTag: 85444adf-1f77-4a82-b8de-5c29f137367b
+  - name: exercises/file-output
+    newName: taas93/file-output
+    newTag: 6572720b-9cfd-47bb-be64-6b05e9f54069
+  - name: exercises/ping-pong
+    newName: taas93/ping-pong
+    newTag: 43449572-6c75-40ea-9f85-2bef03e50f19
+resources:
+  - manifests
