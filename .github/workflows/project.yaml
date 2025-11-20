@@ -1,7 +1,6 @@
 name: Release Project application
 
 on:
-  push:
   workflow_dispatch:
 
 env:
