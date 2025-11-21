@@ -3,12 +3,12 @@ kind: Kustomization
 images:
 - name: exercises/create-file
   newName: taas93/create-file
-  newTag: 2321910111e7b172a2c5178bd79e9e921aaec051
+  newTag: 6c8f05efc1ca6206da5e72e16e401a3dd03e836e
 - name: exercises/file-output
   newName: taas93/file-output
-  newTag: 2321910111e7b172a2c5178bd79e9e921aaec051
+  newTag: 6c8f05efc1ca6206da5e72e16e401a3dd03e836e
 - name: exercises/ping-pong
   newName: taas93/ping-pong
-  newTag: 2321910111e7b172a2c5178bd79e9e921aaec051
+  newTag: 6c8f05efc1ca6206da5e72e16e401a3dd03e836e
 resources:
 - manifests
