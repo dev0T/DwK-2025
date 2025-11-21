@@ -28,7 +28,7 @@ jobs:
       # create-file
 
       - name: Form the image name
-        run: echo "CREATE_FILE_IMAGE=$DOCKER_USER/create-file:$GITHUB_SHA >> $GITHUB_ENV
+        run: echo "CREATE_FILE_IMAGE=$DOCKER_USER/create-file:$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: log_output
@@ -37,7 +37,7 @@ jobs:
       # file-output
 
       - name: Form the image name
-        run: echo "FILE_OUTPUT_IMAGE=$DOCKER_USER/file-output:$GITHUB_SHA >> $GITHUB_ENV
+        run: echo "FILE_OUTPUT_IMAGE=$DOCKER_USER/file-output:$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: log_output
@@ -46,7 +46,7 @@ jobs:
       # ping-pong
 
       - name: Form the image name
-        run: echo "PING_PONG_IMAGE=$DOCKER_USER/ping-pong:$GITHUB_SHA >> $GITHUB_ENV
+        run: echo "PING_PONG_IMAGE=$DOCKER_USER/ping-pong:$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: log_output
