@@ -32,7 +32,7 @@ jobs:
 
       - name: Build and publish
         working-directory: log_output
-        run: docker buildx build --tag CREATE_FILE_IMAGE --push ./create-file
+        run: docker buildx build --tag $CREATE_FILE_IMAGE --push ./create-file
 
       # file-output
 
@@ -41,7 +41,7 @@ jobs:
 
       - name: Build and publish
         working-directory: log_output
-        run: docker buildx build --tag FILE_OUTPUT_IMAGE --push ./file-output
+        run: docker buildx build --tag $FILE_OUTPUT_IMAGE --push ./file-output
 
       # ping-pong
 
@@ -50,7 +50,7 @@ jobs:
 
       - name: Build and publish
         working-directory: log_output
-        run: docker buildx build --tag PING_PONG_IMAGE --push ./ping-pong
+        run: docker buildx build --tag $PING_PONG_IMAGE --push ./ping-pong
 
       # finalize
 
