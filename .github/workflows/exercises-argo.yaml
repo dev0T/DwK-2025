@@ -7,7 +7,7 @@ on:
 env:
   BRANCH: ${{ github.ref_name }}
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKE_TOKEN }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
 
 jobs:
   build-publish:
