@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "log_output/**"
+    tags-ignore:
+      - "*"
 env:
   BRANCH: ${{ github.ref_name }}
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
