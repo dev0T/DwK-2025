@@ -55,3 +55,5 @@ To run the services, run the following command on log-output folder:
 ```zsh
 kubectl apply -Rf manifests
 ```
+
+## Continuous Deployment (ArgoCD)
