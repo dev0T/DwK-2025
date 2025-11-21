@@ -56,4 +56,6 @@ To run the services, run the following command on log-output folder:
 kubectl apply -k .
 ```
 
+The `kustomization.yaml` file contains the image names and tags to be deployed.
+
 ## Continuous Deployment (ArgoCD)
