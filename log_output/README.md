@@ -53,7 +53,7 @@ Create the namespace for the services:
 To run the services, run the following command on log-output folder:
 
 ```zsh
-kubectl apply -Rf manifests
+kubectl apply -k .
 ```
 
 ## Continuous Deployment (ArgoCD)
