@@ -1,0 +1,71 @@
+name: Build and publish log output for Argo
+
+on:
+  push:
+    paths:
+      - "log_output/**"
+env:
+  BRANCH: ${{ github.ref_name }}
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+
+jobs:
+  build-publish:
+    name: Build, Push, Release
+    runs-on: ubuntu-latest
+    environment: my-env
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: "${{ env.DOCKER_USER }}"
+          password: "${{ env.DOCKER_PASSWORD }}"
+
+      # create-file
+
+      - name: Form the image name
+        run: echo "CREATE_FILE_IMAGE=$DOCKER_USER/create-file:$GITHUB_SHA >> $GITHUB_ENV
+
+      - name: Build and publish
+        working-directory: log_output
+        run: docker buildx build --tag CREATE_FILE_IMAGE --push ./create-file
+
+      # file-output
+
+      - name: Form the image name
+        run: echo "FILE_OUTPUT_IMAGE=$DOCKER_USER/file-output:$GITHUB_SHA >> $GITHUB_ENV
+
+      - name: Build and publish
+        working-directory: log_output
+        run: docker buildx build --tag FILE_OUTPUT_IMAGE --push ./file-output
+
+      # ping-pong
+
+      - name: Form the image name
+        run: echo "PING_PONG_IMAGE=$DOCKER_USER/ping-pong:$GITHUB_SHA >> $GITHUB_ENV
+
+      - name: Build and publish
+        working-directory: log_output
+        run: docker buildx build --tag PING_PONG_IMAGE --push ./ping-pong
+
+      # finalize
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2
+
+      - name: Update images on file
+        working-directory: log_output
+        run: |-
+          kustomize edit set image exercises/file-output=FILE_OUTPUT_IMAGE
+          kustomize edit set image exercises/create-file=CREATE_FILE_IMAGE
+          kustomize edit set image exercises/ping-pong=$PING_PONG_IMAGE
+
+      - name: Commit kustomization.yaml to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "log_output/kustomization.yaml"
+          message: New version released ${{ github.sha }}
