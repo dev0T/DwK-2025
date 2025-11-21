@@ -57,5 +57,3 @@ kubectl apply -k .
 ```
 
 The `kustomization.yaml` file contains the image names and tags to be deployed.
-
-## Continuous Deployment (ArgoCD)
