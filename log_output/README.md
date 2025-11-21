@@ -53,5 +53,7 @@ Create the namespace for the services:
 To run the services, run the following command on log-output folder:
 
 ```zsh
-kubectl apply -Rf manifests
+kubectl apply -k .
 ```
+
+The `kustomization.yaml` file contains the image names and tags to be deployed.

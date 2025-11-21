@@ -28,29 +28,29 @@ jobs:
       # create-file
 
       - name: Form the image name
-        run: echo "CREATE_FILE_IMAGE=$DOCKER_USER/create-file:$GITHUB_SHA >> $GITHUB_ENV
+        run: echo "CREATE_FILE_IMAGE=$DOCKER_USER/create-file:$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: log_output
-        run: docker buildx build --tag CREATE_FILE_IMAGE --push ./create-file
+        run: docker buildx build --tag $CREATE_FILE_IMAGE --push ./create-file
 
       # file-output
 
       - name: Form the image name
-        run: echo "FILE_OUTPUT_IMAGE=$DOCKER_USER/file-output:$GITHUB_SHA >> $GITHUB_ENV
+        run: echo "FILE_OUTPUT_IMAGE=$DOCKER_USER/file-output:$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: log_output
-        run: docker buildx build --tag FILE_OUTPUT_IMAGE --push ./file-output
+        run: docker buildx build --tag $FILE_OUTPUT_IMAGE --push ./file-output
 
       # ping-pong
 
       - name: Form the image name
-        run: echo "PING_PONG_IMAGE=$DOCKER_USER/ping-pong:$GITHUB_SHA >> $GITHUB_ENV
+        run: echo "PING_PONG_IMAGE=$DOCKER_USER/ping-pong:$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: log_output
-        run: docker buildx build --tag PING_PONG_IMAGE --push ./ping-pong
+        run: docker buildx build --tag $PING_PONG_IMAGE --push ./ping-pong
 
       # finalize
 
@@ -60,8 +60,8 @@ jobs:
       - name: Update images on file
         working-directory: log_output
         run: |-
-          kustomize edit set image exercises/file-output=FILE_OUTPUT_IMAGE
-          kustomize edit set image exercises/create-file=CREATE_FILE_IMAGE
+          kustomize edit set image exercises/file-output=$FILE_OUTPUT_IMAGE
+          kustomize edit set image exercises/create-file=$CREATE_FILE_IMAGE
           kustomize edit set image exercises/ping-pong=$PING_PONG_IMAGE
 
       - name: Commit kustomization.yaml to GitHub
