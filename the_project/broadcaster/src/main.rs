@@ -6,10 +6,13 @@ use regex::Regex;
 use std::{collections::HashMap, env, str::from_utf8};
 
 const DEFAULT_NATS_URL: &str = "nats://localhost:4222";
+const DEFAULT_ENV: &str = "development";
 
 #[tokio::main]
 async fn main() -> Result<(), async_nats::Error> {
     dotenv().ok();
+
+    let env = env::var("ENV").unwrap_or(DEFAULT_ENV.to_string());
 
     let nats_url = env::var("NATS_URL").unwrap_or(DEFAULT_NATS_URL.to_string());
 
@@ -23,8 +26,12 @@ async fn main() -> Result<(), async_nats::Error> {
     let mut subscription = client.queue_subscribe("todos.>", "queue".into()).await?;
 
     while let Some(message) = subscription.next().await {
-        let text_message = message_template(message.clone(), replica_name.clone());
-        send_message(&text_message).await?;
+        if env == "production" {
+            let text_message = message_template(message.clone(), replica_name.clone());
+            send_message(&text_message).await?;
+        } else {
+            println!("Message: {:?}", message.payload);
+        }
     }
 
     Ok(())
