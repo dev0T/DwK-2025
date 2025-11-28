@@ -1,0 +1,73 @@
+name: Build and publish the project for Argo
+
+on:
+  push:
+    paths:
+      - "the_project/**"
+    tags-ignore:
+      - "*"
+env:
+  BRANCH: ${{ github.ref_name }}
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+
+jobs:
+  build-publish:
+    name: Build, Push, Release
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: "${{ env.DOCKER_USER }}"
+          password: "${{ env.DOCKER_PASSWORD }}"
+
+      # todo-app
+
+      - name: Form the image name
+        run: echo "TODO_APP_IMAGE=$DOCKER_USER/todo-app:$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build and publish
+        working-directory: the_project
+        run: docker buildx build --tag $TODO_APP_IMAGE --push ./todo-app
+
+      # todo-backend
+
+      - name: Form the image name
+        run: echo "TODO_BACKEND_IMAGE=$DOCKER_USER/todo-backend:$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build and publish
+        working-directory: the_project
+        run: docker buildx build --tag $TODO_BACKEND_IMAGE --push ./todo-backend
+
+      # broadcaster
+
+      - name: Form the image name
+        run: echo "BROADCASTER_IMAGE=$DOCKER_USER/broadcaster:$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build and publish
+        working-directory: the_project
+        run: docker buildx build --tag $BROADCASTER_IMAGE --push ./broadcaster
+
+      # finalize
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2
+
+      - name: Update images on file
+        working-directory: the_project/manifests/overlays/staging
+        run: |-
+          kustomize edit set image project/todo-app=$TODO_APP_IMAGE
+          kustomize edit set image project/todo-backend=$TODO_BACKEND_IMAGE
+          kustomize edit set image project/broadcaster=$BROADCASTER_IMAGE
+
+      - name: Commit kustomization.yaml to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "the_project/manifests/overlays/staging/kustomization.yaml"
+          message: New version released ${{ github.sha }}
