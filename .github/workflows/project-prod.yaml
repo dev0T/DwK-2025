@@ -1,4 +1,4 @@
-name: Build and publish the project for Argo
+name: Production deployment
 
 on:
   push:
