@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: first-pv
+  name: project-pv
 spec:
-  storageClassName: first-pv
+  storageClassName: project-pv
   capacity:
     storage: 1Gi
   volumeMode: Filesystem
