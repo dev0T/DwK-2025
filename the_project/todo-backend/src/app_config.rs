@@ -7,6 +7,7 @@ pub struct Settings {
     pub port: u16,
     pub host: String,
     pub nats: String,
+    pub env: String,
 }
 
 #[derive(Debug, serde::Deserialize)]
