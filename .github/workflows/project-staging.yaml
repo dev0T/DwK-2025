@@ -1,6 +1,4 @@
-name: Build and publish the project for Argo
-
-on:
+name: Staging deployment
   push:
     paths:
       - "the_project/**"
