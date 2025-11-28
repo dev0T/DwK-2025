@@ -6,4 +6,5 @@ resources:
   - db.yaml
   - deployment.yaml
   - service.yaml
-  - analysis.yaml
+  #- analysis.yaml
+  #- rollout.yaml

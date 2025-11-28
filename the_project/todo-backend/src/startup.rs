@@ -11,8 +11,6 @@ use std::net::TcpListener;
 use tracing::info;
 use tracing_actix_web::TracingLogger;
 
-//use actix_cors::Cors;
-
 pub struct Application {
     port: u16,
     server: Server,
@@ -25,7 +23,7 @@ impl Application {
         let nats_client = connect_to_nats(&config.nats).await;
         let address = listener.local_addr().unwrap();
         info!("Starting HTTP server at {:?}", address);
-        let server = start_server(listener, db_connection, nats_client).await?;
+        let server = start_server(listener, db_connection, nats_client, config.env).await?;
 
         Ok(Self {
             port: address.port(),
@@ -45,17 +43,22 @@ async fn start_server(
     listener: TcpListener,
     connection_pool: PgPool,
     nats: Client,
+    env: String,
 ) -> Result<Server, std::io::Error> {
     let db_pool = web::Data::new(connection_pool);
     let nats_client = web::Data::new(nats);
 
     let server = HttpServer::new(move || {
-        // Only for development
-        let cors = Cors::permissive();
-        //
-        // let cors = Cors::default().allowed_origin_fn(|origin, _req_head| {
-        //     origin.as_bytes().starts_with(b"http://localhost")
-        // });
+        let cors = if env == "development" {
+            Cors::permissive()
+        } else {
+            //
+            // let cors = Cors::default().allowed_origin_fn(|origin, _req_head| {
+            //     origin.as_bytes().starts_with(b"http://localhost")
+            // });
+            Cors::default()
+        };
+
         App::new()
             .wrap(cors)
             .wrap(TracingLogger::default())
