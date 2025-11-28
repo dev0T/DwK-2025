@@ -1,4 +1,6 @@
 name: Staging deployment
+
+on:
   push:
     paths:
       - "the_project/**"
