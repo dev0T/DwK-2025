@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: broadcaster-cm
 data:
-  env: production
+  env: staging

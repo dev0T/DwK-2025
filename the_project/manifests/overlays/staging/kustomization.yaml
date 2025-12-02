@@ -1,17 +1,19 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
+namespace: staging-project
 resources:
-- ./../../base
+  - ./../../base
+  - broadcaster
+  - todo-backend
 namePrefix: staging-
 
 images:
-- name: project/broadcaster
-  newName: taas93/broadcaster
-  newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
-- name: project/todo-app
-  newName: taas93/todo-app
-  newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
-- name: project/todo-backend
-  newName: taas93/todo-backend
-  newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
+  - name: project/broadcaster
+    newName: taas93/broadcaster
+    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
+  - name: project/todo-app
+    newName: taas93/todo-app
+    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
+  - name: project/todo-backend
+    newName: taas93/todo-backend
+    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
