@@ -8,10 +8,10 @@ namePrefix: staging-
 images:
 - name: project/broadcaster
   newName: taas93/broadcaster
-  newTag: cfe25d10711429f0595da3910a21cd34a5b37121
+  newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
 - name: project/todo-app
   newName: taas93/todo-app
-  newTag: cfe25d10711429f0595da3910a21cd34a5b37121
+  newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
 - name: project/todo-backend
   newName: taas93/todo-backend
-  newTag: cfe25d10711429f0595da3910a21cd34a5b37121
+  newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
