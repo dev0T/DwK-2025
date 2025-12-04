@@ -5,8 +5,9 @@ metadata:
 data:
   port: "3003"
   host: "0.0.0.0"
-  client_url: "http://todo-app-svc:80"
   database_host: "postgres-svc"
   database_name: "todos"
   database_port: "5432"
-  nats: "nats://my-nats:4222"
+  nats_host: "my-nats"
+  nats_port: "4222"
+  env: "development"

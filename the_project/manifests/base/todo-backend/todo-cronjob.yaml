@@ -15,5 +15,8 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - article=$(curl --silent --write-out "%{redirect_url}\n" https://en.wikipedia.org/wiki/Special:Random) && curl --json '{"title":"Read '${article}'"}' http://todo-backend-svc:80/api/v1/todos
+                - article=$(curl --silent --write-out "%{redirect_url}\n" https://en.wikipedia.org/wiki/Special:Random) && curl --json '{"title":"Read '${article}'"}' http://${BACKEND_SVC}:80/api/v1/todos
+              env:
+                - name: BACKEND_SVC
+                  value: "todo-backend-svc"
           restartPolicy: Never

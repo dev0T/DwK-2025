@@ -58,7 +58,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: project
   name: postgres-svc
   labels:
     app: todo-db

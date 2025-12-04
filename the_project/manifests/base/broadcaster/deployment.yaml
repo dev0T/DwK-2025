@@ -16,11 +16,6 @@ spec:
         - name: broadcaster
           image: project/broadcaster
           env:
-            - name: NATS_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: broadcaster-cm
-                  key: nats_url
             - name: TELEGRAM_URL
               valueFrom:
                 secretKeyRef:
@@ -41,3 +36,7 @@ spec:
                 secretKeyRef:
                   name: broadcaster-secrets
                   key: telegram_thread_id
+      volumes:
+        - name: broadcaster-config-volume
+          configMap:
+            name: broadcaster-cm

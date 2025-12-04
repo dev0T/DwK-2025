@@ -6,7 +6,7 @@ pub struct Settings {
     pub database: DatabaseSettings,
     pub port: u16,
     pub host: String,
-    pub nats: String,
+    pub nats: NatsSettings,
     pub env: String,
 }
 
@@ -15,6 +15,12 @@ pub struct DatabaseSettings {
     pub name: String,
     pub user: String,
     pub password: SecretString,
+    pub port: u16,
+    pub host: String,
+}
+
+#[derive(Debug, serde::Deserialize)]
+pub struct NatsSettings {
     pub port: u16,
     pub host: String,
 }
@@ -40,6 +46,12 @@ impl DatabaseSettings {
             self.port
         )
         .into()
+    }
+}
+
+impl NatsSettings {
+    pub fn connection_string(&self) -> String {
+        format!("nats://{}:{}", self.host, self.port,).into()
     }
 }
 

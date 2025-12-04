@@ -3,4 +3,6 @@ kind: ConfigMap
 metadata:
   name: broadcaster-cm
 data:
-  nats_url: "nats://my-nats:4222"
+  nats_host: "my-nats"
+  nats_port: "4222"
+  env: "development"

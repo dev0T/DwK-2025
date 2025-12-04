@@ -1,9 +1,12 @@
 use async_nats::Client;
 use tracing::info;
 
-pub async fn connect_to_nats(url: &str) -> Client {
-    info!("[NATS-CONNECT] Connecting to NATS at {:?}.", url);
-    let client = async_nats::connect(url)
+use crate::app_config::NatsSettings;
+
+pub async fn connect_to_nats(nats: &NatsSettings) -> Client {
+    info!("[NATS-CONNECT] Connecting to NATS at {:?}.", nats.host);
+    let connection_string = nats.connection_string();
+    let client = async_nats::connect(connection_string)
         .await
         .expect("Connection to NATS failed.");
     info!("[NATS-CONNECT] Done.");

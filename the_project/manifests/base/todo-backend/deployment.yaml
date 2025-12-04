@@ -31,6 +31,11 @@ spec:
               cpu: "50m"
               memory: "100Mi"
           env:
+            - name: ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-cm
+                  key: env
             - name: PORT
               valueFrom:
                 configMapKeyRef:
@@ -41,11 +46,6 @@ spec:
                 configMapKeyRef:
                   name: todo-backend-cm
                   key: host
-            - name: CLIENT_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: todo-backend-cm
-                  key: client_url
             - name: DATABASE_HOST
               valueFrom:
                 configMapKeyRef:
