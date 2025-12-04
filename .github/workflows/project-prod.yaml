@@ -1,6 +1,7 @@
 name: Production deployment
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - "the_project/**"
