@@ -3,67 +3,67 @@ kind: Kustomization
 namespace: production-project
 
 resources:
-  - ./../../base
-  - backup-job.yaml
+- ./../../base
+- backup-job.yaml
 
 patches:
-  - path: broadcaster-dep-patch.yaml
+- path: broadcaster-dep-patch.yaml
 
 namePrefix: prod-
 
 images:
-  - name: project/todo-app
-    newName: taas93/todo-app
-    newTag: 5265c3a1-f684-419c-9454-0942d25caec3
-  - name: project/todo-backend
-    newName: taas93/todo-backend
-    newTag: 8d02cb16-0c85-48be-a169-b36784b03ec2
-  - name: project/broadcaster
-    newName: taas93/broadcaster
-    newTag: 07ffb4b3-d618-47c0-a191-4767dbce64b2
+- name: project/broadcaster
+  newName: taas93/broadcaster
+  newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
+- name: project/todo-app
+  newName: taas93/todo-app
+  newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
+- name: project/todo-backend
+  newName: taas93/todo-backend
+  newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
 
 replacements:
-  - source:
-      kind: Service
-      name: postgres-svc
-      fieldPath: metadata.name
-    targets:
-      - select:
-          kind: ConfigMap
-          name: todo-backend-cm
-        fieldPaths:
-          - data.database_host
-  - source:
-      kind: StatefulSet
-      name: project-nats
-      fieldPath: metadata.name
-    targets:
-      - select:
-          kind: ConfigMap
-          name: todo-backend-cm
-        fieldPaths:
-          - data.nats_host
-      - select:
-          kind: ConfigMap
-          name: broadcaster-cm
-        fieldPaths:
-          - data.nats_host
-  - source:
-      kind: Service
-      name: todo-backend-svc
-      fieldPath: metadata.name
-    targets:
-      - select:
-          kind: CronJob
-          name: todo-job
-        fieldPaths:
-          - data.database_host
+- source:
+    fieldPath: metadata.name
+    kind: Service
+    name: postgres-svc
+  targets:
+  - fieldPaths:
+    - data.database_host
+    select:
+      kind: ConfigMap
+      name: todo-backend-cm
+- source:
+    fieldPath: metadata.name
+    kind: StatefulSet
+    name: project-nats
+  targets:
+  - fieldPaths:
+    - data.nats_host
+    select:
+      kind: ConfigMap
+      name: todo-backend-cm
+  - fieldPaths:
+    - data.nats_host
+    select:
+      kind: ConfigMap
+      name: broadcaster-cm
+- source:
+    fieldPath: metadata.name
+    kind: Service
+    name: todo-backend-svc
+  targets:
+  - fieldPaths:
+    - data.database_host
+    select:
+      kind: CronJob
+      name: todo-job
 configMapGenerator:
-  - name: broadcaster-cm
-    behavior: merge
-    literals:
-      - env="production"
-  - name: todo-backend-cm
-    behavior: merge
-    literals:
-      - env="production"
+- behavior: merge
+  literals:
+  - env="production"
+  name: broadcaster-cm
+- behavior: merge
+  literals:
+  - env="production"
+  name: todo-backend-cm
