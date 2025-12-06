@@ -32,7 +32,7 @@ jobs:
       # todo-app
 
       - name: Form the image name
-        run: echo "TODO_APP_IMAGE=$DOCKER_USER/todo-app:$GITHUB_SHA" >> $GITHUB_ENV
+        run: echo "TODO_APP_IMAGE=$DOCKER_USER/todo-app:prod-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: the_project
@@ -41,7 +41,7 @@ jobs:
       # todo-backend
 
       - name: Form the image name
-        run: echo "TODO_BACKEND_IMAGE=$DOCKER_USER/todo-backend:$GITHUB_SHA" >> $GITHUB_ENV
+        run: echo "TODO_BACKEND_IMAGE=$DOCKER_USER/todo-backend:prod-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: the_project
@@ -50,7 +50,7 @@ jobs:
       # broadcaster
 
       - name: Form the image name
-        run: echo "BROADCASTER_IMAGE=$DOCKER_USER/broadcaster:$GITHUB_SHA" >> $GITHUB_ENV
+        run: echo "BROADCASTER_IMAGE=$DOCKER_USER/broadcaster:prod-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build and publish
         working-directory: the_project
@@ -73,3 +73,4 @@ jobs:
         with:
           add: "the_project/manifests/overlays/production/kustomization.yaml"
           message: New version released ${{ github.sha }}
+          pull: "--rebase --autostash ..."

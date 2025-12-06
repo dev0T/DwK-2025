@@ -71,3 +71,4 @@ jobs:
         with:
           add: "log_output/kustomization.yaml"
           message: New version released ${{ github.sha }}
+          pull: "--rebase --autostash ..."
