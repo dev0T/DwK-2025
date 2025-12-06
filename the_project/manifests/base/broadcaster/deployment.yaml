@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: broadcaster-dep
+
 spec:
   replicas: 2
   selector:
@@ -16,6 +17,21 @@ spec:
         - name: broadcaster
           image: project/broadcaster
           env:
+            - name: ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: broadcaster-cm
+                  key: env
+            - name: NATS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: broadcaster-cm
+                  key: nats_host
+            - name: NATS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: broadcaster-cm
+                  key: nats_port
             - name: TELEGRAM_URL
               valueFrom:
                 secretKeyRef:
@@ -36,7 +52,3 @@ spec:
                 secretKeyRef:
                   name: broadcaster-secrets
                   key: telegram_thread_id
-      volumes:
-        - name: broadcaster-config-volume
-          configMap:
-            name: broadcaster-cm

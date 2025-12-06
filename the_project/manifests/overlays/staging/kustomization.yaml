@@ -4,7 +4,30 @@ namespace: staging-project
 
 resources:
   - ./../../base
+  - namespace.yaml
 namePrefix: staging-
+
+replacements:
+  - source:
+      fieldPath: metadata.name
+      kind: Service
+      name: postgres-svc
+    targets:
+      - fieldPaths:
+          - data.database_host
+        select:
+          kind: ConfigMap
+          name: todo-backend-cm
+  - source:
+      fieldPath: metadata.name
+      kind: Service
+      name: todo-backend-svc
+    targets:
+      - fieldPaths:
+          - spec.jobTemplate.spec.template.spec.containers.0.env.0.value
+        select:
+          kind: CronJob
+          name: todo-job
 
 images:
   - name: project/broadcaster
@@ -18,11 +41,13 @@ images:
     newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
 
 configMapGenerator:
-  - name: broadcaster-cm
-    behavior: merge
+  - behavior: merge
     literals:
-      - ENV="staging"
-  - name: todo-backend-cm
-    behavior: merge
+      - env="staging"
+      - nats_host="prod-nats"
+    name: broadcaster-cm
+  - behavior: merge
     literals:
-      - ENV="staging"
+      - env="staging"
+      - nats_host="prod-nats"
+    name: todo-backend-cm

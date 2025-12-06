@@ -3,67 +3,67 @@ kind: Kustomization
 namespace: production-project
 
 resources:
-- ./../../base
-- backup-job.yaml
+  - ./../../base
+  - backup-job.yaml
+  - namespace.yaml
 
 patches:
-- path: broadcaster-dep-patch.yaml
+  - path: broadcaster-dep-patch.yaml
 
 namePrefix: prod-
 
 images:
-- name: project/broadcaster
-  newName: taas93/broadcaster
-  newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
-- name: project/todo-app
-  newName: taas93/todo-app
-  newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
-- name: project/todo-backend
-  newName: taas93/todo-backend
-  newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
+  - name: project/broadcaster
+    newName: taas93/broadcaster
+    newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
+  - name: project/todo-app
+    newName: taas93/todo-app
+    newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
+  - name: project/todo-backend
+    newName: taas93/todo-backend
+    newTag: bc85275c6edc9bf442ebbbe5ae5e029d7ba6e2d5
+
+# Taken from https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
+
+# "Since the Service name may change as namePrefix or nameSuffix is added in the kustomization.yaml file. It is not recommended to hard code the Service name in the command argument. For this usage, Kustomize can inject the Service name into containers through replacements."
 
 replacements:
-- source:
-    fieldPath: metadata.name
-    kind: Service
-    name: postgres-svc
-  targets:
-  - fieldPaths:
-    - data.database_host
-    select:
-      kind: ConfigMap
-      name: todo-backend-cm
-- source:
-    fieldPath: metadata.name
-    kind: StatefulSet
-    name: project-nats
-  targets:
-  - fieldPaths:
-    - data.nats_host
-    select:
-      kind: ConfigMap
-      name: todo-backend-cm
-  - fieldPaths:
-    - data.nats_host
-    select:
-      kind: ConfigMap
-      name: broadcaster-cm
-- source:
-    fieldPath: metadata.name
-    kind: Service
-    name: todo-backend-svc
-  targets:
-  - fieldPaths:
-    - data.database_host
-    select:
-      kind: CronJob
-      name: todo-job
+  - source:
+      fieldPath: metadata.name
+      kind: Service
+      name: postgres-svc
+    targets:
+      - fieldPaths:
+          - data.database_host
+        select:
+          kind: ConfigMap
+          name: todo-backend-cm
+  - source:
+      fieldPath: metadata.name
+      kind: Service
+      name: todo-backend-svc
+    targets:
+      - fieldPaths:
+          - spec.jobTemplate.spec.template.spec.containers.0.env.0.value
+        select:
+          kind: CronJob
+          name: todo-job
+
 configMapGenerator:
-- behavior: merge
-  literals:
-  - env="production"
-  name: broadcaster-cm
-- behavior: merge
-  literals:
-  - env="production"
-  name: todo-backend-cm
+  - behavior: merge
+    literals:
+      - env="production"
+      - nats_host="prod-nats"
+    name: broadcaster-cm
+  - behavior: merge
+    literals:
+      - env="production"
+      - nats_host="prod-nats"
+    name: todo-backend-cm
+
+helmCharts:
+  - name: nats
+    repo: https://nats-io.github.io/k8s/helm/charts/
+    valuesInline:
+      fullnameOverride: nats
+      #serverNamePrefix: prod-
