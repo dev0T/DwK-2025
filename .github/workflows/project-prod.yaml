@@ -73,4 +73,4 @@ jobs:
         with:
           add: "the_project/manifests/overlays/production/kustomization.yaml"
           message: New version released ${{ github.sha }}
-          pull: "--rebase --autostash ..."
+          pull: "--rebase --autostash"
