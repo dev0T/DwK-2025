@@ -5,7 +5,23 @@ namespace: staging-project
 resources:
   - ./../../base
   - namespace.yaml
+
 namePrefix: staging-
+
+images:
+  - name: project/broadcaster
+    newName: taas93/broadcaster
+    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
+  - name: project/todo-app
+    newName: taas93/todo-app
+    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
+  - name: project/todo-backend
+    newName: taas93/todo-backend
+    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
+
+# Taken from https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
+
+# "Since the Service name may change as namePrefix or nameSuffix is added in the kustomization.yaml file. It is not recommended to hard code the Service name in the command argument. For this usage, Kustomize can inject the Service name into containers through replacements."
 
 replacements:
   - source:
@@ -29,25 +45,20 @@ replacements:
           kind: CronJob
           name: todo-job
 
-images:
-  - name: project/broadcaster
-    newName: taas93/broadcaster
-    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
-  - name: project/todo-app
-    newName: taas93/todo-app
-    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
-  - name: project/todo-backend
-    newName: taas93/todo-backend
-    newTag: 7ca1be9e88fe575c99b02b0f12ee73bc24a571ad
-
 configMapGenerator:
   - behavior: merge
     literals:
       - env="staging"
-      - nats_host="prod-nats"
+      - nats_host="staging-nats"
     name: broadcaster-cm
   - behavior: merge
     literals:
       - env="staging"
-      - nats_host="prod-nats"
+      - nats_host="staging-nats"
     name: todo-backend-cm
+
+helmCharts:
+  - name: nats
+    repo: https://nats-io.github.io/k8s/helm/charts/
+    valuesInline:
+      fullnameOverride: nats
