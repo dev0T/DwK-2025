@@ -1,18 +1,18 @@
 $shadow-color-hue: 240deg;
 $shadow-color-saturation: 34%;
 $shadow-color-lightness: 4%;
-$shadow-elevation-low: 0.3px 0.5px 0.5px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.23),
-  0.4px 0.8px 0.8px -2.1px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.17),
-  1.2px 2.3px 2.2px -4.2px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.1);
-$shadow-elevation-medium: 0.3px 0.5px 0.5px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.24),
-  0.6px 1.2px 1.2px -1.4px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.19),
-  2px 4px 3.9px -2.8px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.14),
-  5.8px 11.5px 11.1px -4.2px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.09);
-$shadow-elevation-high: 0.3px 0.5px 0.5px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.22),
-  0.8px 1.6px 1.5px -0.6px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.2),
-  1.7px 3.5px 3.4px -1.2px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.18),
-  3.7px 7.4px 7.1px -1.8px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.15),
-  7.2px 14.3px 13.8px -2.4px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.13),
-  12.7px 25.5px 24.6px -3px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.11),
-  21px 42px 40.5px -3.6px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.09),
-  32.5px 65px 62.7px -4.2px hsl($shadow-color-hue $shadow-color-saturation $shadow-color-lightness / 0.06);
+$shadow-elevation-low: 0.3px 0.5px 0.5px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.23)),
+  0.4px 0.8px 0.8px -2.1px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.17)),
+  1.2px 2.3px 2.2px -4.2px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.1));
+$shadow-elevation-medium: 0.3px 0.5px 0.5px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.24)),
+  0.6px 1.2px 1.2px -1.4px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.19)),
+  2px 4px 3.9px -2.8px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.14)),
+  5.8px 11.5px 11.1px -4.2px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.09));
+$shadow-elevation-high: 0.3px 0.5px 0.5px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.22)),
+  0.8px 1.6px 1.5px -0.6px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.2)),
+  1.7px 3.5px 3.4px -1.2px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.18)),
+  3.7px 7.4px 7.1px -1.8px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.15)),
+  7.2px 14.3px 13.8px -2.4px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.13)),
+  12.7px 25.5px 24.6px -3px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.11)),
+  21px 42px 40.5px -3.6px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.09)),
+  32.5px 65px 62.7px -4.2px hsl($shadow-color-hue $shadow-color-saturation calc($shadow-color-lightness / 0.06));
