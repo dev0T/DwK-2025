@@ -16,12 +16,7 @@ const envBasePath = (): string => {
 const nextConfig: NextConfig = {
   basePath: envBasePath(),
   output: "standalone",
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-    incomingRequests: true
-  }
+  serverExternalPackages: ['pino'],
 };
 
 export default nextConfig;
