@@ -15,13 +15,13 @@ namePrefix: prod-
 images:
 - name: project/broadcaster
   newName: taas93/broadcaster
-  newTag: prod-c2c916f46176ccb27f4dbb7476f614ac5902b19b
+  newTag: prod-dc03b3e43fcf009e597f3c5be8b99a3f41c78036
 - name: project/todo-app
   newName: taas93/todo-app
-  newTag: prod-c2c916f46176ccb27f4dbb7476f614ac5902b19b
+  newTag: prod-dc03b3e43fcf009e597f3c5be8b99a3f41c78036
 - name: project/todo-backend
   newName: taas93/todo-backend
-  newTag: prod-c2c916f46176ccb27f4dbb7476f614ac5902b19b
+  newTag: prod-dc03b3e43fcf009e597f3c5be8b99a3f41c78036
 
 # Taken from https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
 
