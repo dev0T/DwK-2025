@@ -7,7 +7,7 @@ const envBasePath = (): string => {
     case "production":
       return "";
     default:
-      return currentEnv
+          return `/${currentEnv}`
     }
   }
   return ""
@@ -20,9 +20,7 @@ const nextConfig: NextConfig = {
     fetches: {
       fullUrl: true,
     },
-    incomingRequests: {
-      ignore: [/\api\/v1\/health/],
-    }
+    incomingRequests: true
   }
 };
 
