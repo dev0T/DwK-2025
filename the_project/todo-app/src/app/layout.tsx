@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import '@/styles/global.scss'
 
+const currentEnv = process.env.ENV;
+
 export const metadata: Metadata = {
-  title: 'Todo App',
+  title: `Todo App ${currentEnv}`,
   description: 'A simple todo app'
 }
 
