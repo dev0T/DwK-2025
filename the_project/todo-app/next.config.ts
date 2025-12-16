@@ -15,6 +15,7 @@ const envBasePath = (): string => {
 
 const nextConfig: NextConfig = {
   basePath: envBasePath(),
+  assetPrefix: envBasePath(),
   output: "standalone",
   serverExternalPackages: ['pino'],
   logging: {
