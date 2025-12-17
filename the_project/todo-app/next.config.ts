@@ -17,13 +17,12 @@ const nextConfig: NextConfig = {
   basePath: envBasePath(),
   assetPrefix: envBasePath(),
   output: "standalone",
-  serverExternalPackages: ['pino'],
+  serverExternalPackages: ['pino', 'next-logger'],
   logging: {
     fetches: {
       fullUrl: true,
     },
     incomingRequests: true
-    
   }
 };
 
