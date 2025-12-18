@@ -12,7 +12,7 @@ env:
   BRANCH: ${{ github.ref_name }}
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
-  ENV: ${{ github.env.ENV }}
+  ENV: ${{ vars.ENV }}
 
 jobs:
   build-publish:
