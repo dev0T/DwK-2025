@@ -22,7 +22,10 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
     incomingRequests: true
-  }
+  },
+  experimental: {
+    globalNotFound: true,
+  },
 };
 
 export default nextConfig;
