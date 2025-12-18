@@ -14,13 +14,13 @@ namePrefix: staging-
 images:
 - name: project/broadcaster
   newName: taas93/broadcaster
-  newTag: staging-64d438707e570f92d3229b51ccf49091888180c0
+  newTag: staging-2589f334c1e5881be83f91daa58822a30a98bf32
 - name: project/todo-app
   newName: taas93/todo-app
-  newTag: staging-64d438707e570f92d3229b51ccf49091888180c0
+  newTag: staging-2589f334c1e5881be83f91daa58822a30a98bf32
 - name: project/todo-backend
   newName: taas93/todo-backend
-  newTag: staging-64d438707e570f92d3229b51ccf49091888180c0
+  newTag: staging-2589f334c1e5881be83f91daa58822a30a98bf32
 
 # Taken from https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
 
