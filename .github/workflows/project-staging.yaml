@@ -38,7 +38,7 @@ jobs:
 
       - name: Build and publish
         working-directory: the_project
-        run: docker buildx build --tag $TODO_APP_IMAGE --push ./todo-app --build-arg ENV=$ENV --build-arg NEXT_PUBLIC_ENV=$ENV
+        run: docker buildx build --tag $TODO_APP_IMAGE --push ./todo-app --build-arg ENV=$ENV
 
       # todo-backend
 
@@ -47,7 +47,7 @@ jobs:
 
       - name: Build and publish
         working-directory: the_project
-        run: docker buildx build --tag $TODO_BACKEND_IMAGE --push ./todo-backend --build-arg ENV=$ENV --build-arg NEXT_PUBLIC_ENV=$ENV
+        run: docker buildx build --tag $TODO_BACKEND_IMAGE --push ./todo-backend --build-arg ENV=$ENV
 
       # broadcaster
 
@@ -56,7 +56,7 @@ jobs:
 
       - name: Build and publish
         working-directory: the_project
-        run: docker buildx build --tag $BROADCASTER_IMAGE --push ./broadcaster --build-arg ENV=$ENV --build-arg NEXT_PUBLIC_ENV=$ENV
+        run: docker buildx build --tag $BROADCASTER_IMAGE --push ./broadcaster --build-arg ENV=$ENV
       # finalize
 
       - name: Set up Kustomize

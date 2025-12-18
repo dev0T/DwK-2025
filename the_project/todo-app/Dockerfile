@@ -1,5 +1,7 @@
 # syntax=docker.io/docker/dockerfile:1
 
+ARG ENV
+
 FROM node:20-alpine AS base
 
 FROM base AS deps
@@ -19,7 +21,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
-
+ENV ENV=${ENV}
 RUN corepack enable pnpm && pnpm run build
 
 FROM base AS runner
@@ -28,7 +30,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-
+ENV NEXT_PUBLIC_ENV=${ENV}
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
