@@ -30,13 +30,13 @@ export default function CreateTodo() {
 
   const onSubmit = async (values: newTodo) => {
     try {
-      const response = await fetch(`${API_URL}/api/v1/todos`, {
+      const response = await fetch(`${API_URL()}/api/v1/todos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values)
       })
       if (response.status === 200) {
-        mutate<Todo[]>(`${API_URL}/api/v1/todos`, async todos => [
+        mutate<Todo[]>(`${API_URL()}/api/v1/todos`, async todos => [
           ...(todos ?? []),
           await response.json()
         ])
