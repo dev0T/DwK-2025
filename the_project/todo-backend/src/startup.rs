@@ -18,12 +18,14 @@ pub struct Application {
 
 impl Application {
     pub async fn build(config: Settings) -> Result<Self, anyhow::Error> {
-        let listener = TcpListener::bind((config.host, config.port))?;
+        let listener = TcpListener::bind((config.host.clone(), config.port))?;
         let db_connection = connect_to_db(&config.database).await;
         let nats_client = connect_to_nats(&config.nats).await;
         let address = listener.local_addr().unwrap();
         info!("Starting HTTP server at {:?}", address);
-        let server = start_server(listener, db_connection, nats_client, config.env).await?;
+        let sub_path = config.get_sub_path();
+        let server =
+            start_server(listener, db_connection, nats_client, sub_path.to_string()).await?;
 
         Ok(Self {
             port: address.port(),
@@ -43,13 +45,13 @@ async fn start_server(
     listener: TcpListener,
     connection_pool: PgPool,
     nats: Client,
-    env: String,
+    sub_path: String,
 ) -> Result<Server, std::io::Error> {
     let db_pool = web::Data::new(connection_pool);
     let nats_client = web::Data::new(nats);
 
     let server = HttpServer::new(move || {
-        let cors = if env == "development" {
+        let cors = if sub_path == "development/" {
             Cors::permissive()
         } else {
             //
@@ -65,7 +67,9 @@ async fn start_server(
             .app_data(db_pool.clone())
             .app_data(nats_client.clone())
             .configure(routes::health::service)
-            .service(web::scope("/api").configure(routes::todos::service))
+            .service(
+                web::scope(format!("/{sub_path}api").as_str()).configure(routes::todos::service),
+            )
     })
     .listen(listener)?
     .run();

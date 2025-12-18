@@ -55,6 +55,18 @@ impl NatsSettings {
     }
 }
 
+impl Settings {
+    pub fn get_sub_path(&self) -> String {
+        // try with enum
+        let current_env = self.env.clone();
+        if current_env != "production" {
+            current_env + "/"
+        } else {
+            String::new()
+        }
+    }
+}
+
 pub fn get_app_config() -> Result<Settings, config::ConfigError> {
     let source = config::Environment::default()
         .separator("_")
