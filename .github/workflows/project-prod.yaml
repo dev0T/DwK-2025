@@ -46,7 +46,7 @@ jobs:
 
       - name: Build and publish todo-backend
         working-directory: the_project
-        run: docker buildx build --tag $TODO_BACKEND_IMAGE --push ./todo-backend\ --build-arg ENV=$ENV
+        run: docker buildx build --tag $TODO_BACKEND_IMAGE --push ./todo-backend --build-arg ENV=$ENV
 
       # broadcaster
 
