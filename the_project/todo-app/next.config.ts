@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const envBasePath = (): string => {
   const currentEnv = process.env.ENV;
+  console.log("currentEnv: ", currentEnv)
   if (currentEnv) {
     switch (currentEnv) {
       case "production":
