@@ -18,7 +18,7 @@ const updateTodo = async (url: string, { arg }: { arg: Todo }) => {
 
 export default function TodoListItem({ todo }: TodoListItemProps) {
   const { trigger, isMutating } = useSWRMutation(
-    `${API_URL}/api/v1/todos`,
+    `${API_URL()}/api/v1/todos`,
     updateTodo
   )
 

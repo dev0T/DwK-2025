@@ -16,7 +16,7 @@ export interface Todo {
 
 export default function TodoList() {
   const { data: todos, isLoading } = useSWR<Todo[]>(
-    `${API_URL}/api/v1/todos`,
+    `${API_URL()}/api/v1/todos`,
     fetcher
   )
 
