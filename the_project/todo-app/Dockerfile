@@ -22,6 +22,7 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV ENV=${ENV}
+ENV NEXT_PUBLIC_ENV=${ENV}
 RUN corepack enable pnpm && pnpm run build
 
 FROM base AS runner
@@ -30,7 +31,6 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NEXT_PUBLIC_ENV=${ENV}
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
