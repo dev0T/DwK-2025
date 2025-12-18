@@ -22,8 +22,9 @@ impl Application {
         let db_connection = connect_to_db(&config.database).await;
         let nats_client = connect_to_nats(&config.nats).await;
         let address = listener.local_addr().unwrap();
-        info!("Starting HTTP server at {:?}", address);
         let sub_path = config.get_sub_path();
+        info!("Environment: {}", config.env);
+        info!("Starting HTTP server at {}/{}", address, sub_path);
         let server =
             start_server(listener, db_connection, nats_client, sub_path.to_string()).await?;
 
