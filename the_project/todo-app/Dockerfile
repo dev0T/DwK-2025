@@ -6,7 +6,7 @@ ARG ENV
 
 ENV ENV=$ENV
 ENV NEXT_PUBLIC_ENV=$ENV
-RUN echo "ENV ARG value: $ENV"
+RUN echo "Building for: $ENV"
 
 FROM base AS deps
 

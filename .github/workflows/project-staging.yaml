@@ -33,28 +33,28 @@ jobs:
 
       # todo-app
 
-      - name: Form the image name
+      - name: Form todo-app image name
         run: echo "TODO_APP_IMAGE=$DOCKER_USER/todo-app:staging-$GITHUB_SHA" >> $GITHUB_ENV
 
-      - name: Build and publish
+      - name: Build and publish todo-app
         working-directory: the_project
         run: docker buildx build --tag $TODO_APP_IMAGE --push ./todo-app --build-arg ENV=$ENV
 
       # todo-backend
 
-      - name: Form the image name
+      - name: Form todo-backend image name
         run: echo "TODO_BACKEND_IMAGE=$DOCKER_USER/todo-backend:staging-$GITHUB_SHA" >> $GITHUB_ENV
 
-      - name: Build and publish
+      - name: Build and publish todo-backend
         working-directory: the_project
         run: docker buildx build --tag $TODO_BACKEND_IMAGE --push ./todo-backend --build-arg ENV=$ENV
 
       # broadcaster
 
-      - name: Form the image name
+      - name: Form broadcaster image name
         run: echo "BROADCASTER_IMAGE=$DOCKER_USER/broadcaster:staging-$GITHUB_SHA" >> $GITHUB_ENV
 
-      - name: Build and publish
+      - name: Build and publish broadcaster
         working-directory: the_project
         run: docker buildx build --tag $BROADCASTER_IMAGE --push ./broadcaster --build-arg ENV=$ENV
       # finalize
