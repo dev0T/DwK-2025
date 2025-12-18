@@ -12,6 +12,7 @@ env:
   BRANCH: ${{ github.ref_name }}
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+  ENV: ${{ github.env.ENV }}
 
 jobs:
   build-publish:
@@ -36,7 +37,7 @@ jobs:
 
       - name: Build and publish
         working-directory: the_project
-        run: docker buildx build --tag $TODO_APP_IMAGE --push ./todo-app
+        run: docker buildx build --tag $TODO_APP_IMAGE --push ./todo-app --build-arg ENV=$ENV --build-arg NEXT_PUBLIC_ENV=$ENV
 
       # todo-backend
 
@@ -45,7 +46,7 @@ jobs:
 
       - name: Build and publish
         working-directory: the_project
-        run: docker buildx build --tag $TODO_BACKEND_IMAGE --push ./todo-backend
+        run: docker buildx build --tag $TODO_BACKEND_IMAGE --push ./todo-backend --build-arg ENV=$ENV --build-arg NEXT_PUBLIC_ENV=$ENV
 
       # broadcaster
 
@@ -54,8 +55,7 @@ jobs:
 
       - name: Build and publish
         working-directory: the_project
-        run: docker buildx build --tag $BROADCASTER_IMAGE --push ./broadcaster
-
+        run: docker buildx build --tag $BROADCASTER_IMAGE --push ./broadcaster --build-arg ENV=$ENV --build-arg NEXT_PUBLIC_ENV=$ENV
       # finalize
 
       - name: Set up Kustomize
