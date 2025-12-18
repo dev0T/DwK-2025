@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: project-ing
   annotations:
-    traefik.ingress.kubernetes.io/router.priority: "100"
 spec:
   rules:
     - http:

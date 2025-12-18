@@ -42,3 +42,8 @@ spec:
                 configMapKeyRef:
                   name: todo-app-cm
                   key: host
+            - name: ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-cm
+                  key: env
