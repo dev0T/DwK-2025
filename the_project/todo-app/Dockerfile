@@ -1,11 +1,12 @@
 # syntax=docker.io/docker/dockerfile:1
 
-ARG ENV
-
 FROM node:20-alpine AS base
 
-RUN echo "Docker build env"
-RUN echo $ENV
+ARG ENV
+
+ENV ENV=$ENV
+ENV NEXT_PUBLIC_ENV=$ENV
+RUN echo "ENV ARG value: $ENV"
 
 FROM base AS deps
 
@@ -24,8 +25,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV ENV=$ENV
-ENV NEXT_PUBLIC_ENV=$ENV
+
 RUN corepack enable pnpm && pnpm run build
 
 FROM base AS runner
