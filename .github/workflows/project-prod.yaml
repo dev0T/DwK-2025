@@ -19,6 +19,8 @@ jobs:
     name: Build, Push, Release
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -74,4 +76,4 @@ jobs:
         with:
           add: "the_project/manifests/overlays/production/kustomization.yaml"
           message: New version released ${{ github.sha }}
-          pull: "main --rebase --autostash"
+          new_branch: main
