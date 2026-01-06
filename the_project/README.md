@@ -105,3 +105,7 @@ kubectl apply -Rf manifests
 The query used that shows the number of pods created by StatefulSets in prometheus namespace:
 
 `sum(kube_pod_info{namespace="prometheus", created_by_kind="StatefulSet"})`
+
+### Argo CD
+
+The repository with the configurations for deployment with ArgoCD is https://github.com/dev0T/DwK-2025-gitops
