@@ -86,18 +86,18 @@ This repository contains the exercises submitted for the DevOps with Kubernetes 
 - [4.2. The project, step 21](https://github.com/dev0T/DwK-2025/tree/4.2/the_project)
 - [4.3. Prometheus](https://github.com/dev0T/DwK-2025/tree/4.3/the_project)
 - [4.4. Your canary](https://github.com/dev0T/DwK-2025/tree/4.4/log_output)
-- [4.5. The project, step 22]()
+- [4.5. The project, step 22](https://github.com/dev0T/DwK-2025/tree/4.5/the_project)
 
 #### Messaging Systems
 
-- [4.6. The project, step 23]()
+- [4.6. The project, step 23](https://github.com/dev0T/DwK-2025/tree/4.6/the_project)
 
 #### GitOps
 
-- [4.7. Baby steps to GitOps]()
-- [4.8. The project, step 24]()
-- [4.9. The project, step 25]()
-- [4.10. The project, the grande finale]()
+- [4.7. Baby steps to GitOps](https://github.com/dev0T/DwK-2025/tree/4.7/log_output)
+- [4.8. The project, step 24](https://github.com/dev0T/DwK-2025/tree/4.8/the_project)
+- [4.9. The project, step 25](https://github.com/dev0T/DwK-2025/tree/4.9/the_project)
+- [4.10. The project, the grande finale](https://github.com/dev0T/DwK-2025/tree/4.10/the_project)
 
 ### Chapter 6: Under the hood
 
