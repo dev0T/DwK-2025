@@ -1,0 +1,8 @@
+apiVersion: stable.dwk/v1
+kind: DummySite
+metadata:
+  name: dummysite
+spec:
+  image: taas93/dummysite:59507034-79d8-464a-9763-7f238f3bfe7a
+  website_url: https://en.wikipedia.org/wiki/Kubernetes
+  #website_url: https://en.wikipedia.org/wiki/Scala_(programming_language)

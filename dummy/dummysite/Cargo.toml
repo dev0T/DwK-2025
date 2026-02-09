@@ -1,0 +1,11 @@
+[package]
+name = "dummysite"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+actix-web = "4"
+anyhow = "1.0"
+dotenvy = "0.15.7"
+minreq = { version = "2.14", features = ["urlencoding", "https"] }
+tokio = { version = "1.49", features = ["macros", "rt-multi-thread"] }
